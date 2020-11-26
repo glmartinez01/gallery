@@ -1,21 +1,36 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import {NavigationContainer} from "@react-navigation/native";
+import {createStackNavigator} from "@react-navigation/stack";
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-export default function App() {
+import { AntDesign } from '@expo/vector-icons';
+import { Entypo } from '@expo/vector-icons';
+
+import HomeScreen from "./src/screens/HomeScreen";
+import CarreteScreen from "./src/screens/CarreteScreen";
+
+const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
+
+
+export default function App(){
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+      <NavigationContainer>
+        <Tab.Navigator>
+          <Tab.Screen name="Home" component={HomeScreen} options={{
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+            tabBarIcon:({color,size}) =>(
+              <AntDesign name="home" size={size} color={color} />
+            )
+            
+          }} />
+          <Tab.Screen name="Images" component={CarreteScreen} options={{
+
+            tabBarIcon:({color,size}) =>(
+              <Entypo name="images" size={size} color={color} />
+            )
+          }} />
+        </Tab.Navigator>
+      </NavigationContainer>
+  )
+}
