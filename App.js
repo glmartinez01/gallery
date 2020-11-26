@@ -12,11 +12,10 @@ import CarreteScreen from "./src/screens/CarreteScreen";
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
+function MyTabs(){
 
-export default function App(){
-  return (
-      <NavigationContainer>
-        <Tab.Navigator>
+  return(
+    <Tab.Navigator>
           <Tab.Screen name="Home" component={HomeScreen} options={{
 
             tabBarIcon:({color,size}) =>(
@@ -31,6 +30,17 @@ export default function App(){
             )
           }} />
         </Tab.Navigator>
+  )
+
+}
+
+
+export default function App(){
+  return (
+      <NavigationContainer>
+        <Stack.Navigator screenOptions={{headerShown:false}}>
+          <Stack.Screen name = "tabs" component={MyTabs}/>
+        </Stack.Navigator>
       </NavigationContainer>
   )
 }
