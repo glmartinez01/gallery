@@ -1,4 +1,4 @@
-import { Container, View } from "native-base";
+import { Container, View,Header,Body } from "native-base";
 import React from "react";
 import {StyleSheet,Text} from "react-native";
 
@@ -6,8 +6,13 @@ const CarreteScreen = () => {
 
     return(
 
-        <Container style={{alignItems:"center",justifyContent:"center"}}>
-            <View>
+        <Container>
+            <Header androidStatusBarColor="#aaa" style={{backgroundColor:"#fff"}}>
+                <Body style={{backgroundColor:'#fff',alignItems:"center"}}>
+                   <Text style={{borderBottomColor:"#fff",fontSize:20}}>Images</Text>
+                </Body>
+            </Header>
+            <View style={{flex:1,alignItems:"center",justifyContent:"center"}}>
                 <Text>Pantalla de Imagenes</Text>
             </View>
         </Container>
