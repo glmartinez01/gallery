@@ -8,13 +8,13 @@ const db = SQLite.openDatabase("gallery.db");
 // Funcionalidades de la base de datos
 
 // Obtener las imagenes del usuario
-const getImages = (setNotesFunc) => {
+const getImages = (setImagesFunc) => {
   db.transaction((tx) => {
     tx.executeSql(
       "select * from images",
       [],
       (_, { rows: { _array } }) => {
-        setNotesFunc(_array);
+        setImagesFunc(_array);
       },
       (_t, error) => {
         console.log("Error al momento de obtener las imagenes");

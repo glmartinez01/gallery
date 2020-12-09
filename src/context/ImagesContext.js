@@ -10,7 +10,7 @@ export const ImagesContextProvider = (props) => {
   const { images: initialImages, children } = props;
 
   // Almacenar los valores en el estado
-  const [image, setImages] = useState(initialImages);
+  const [images, setImages] = useState(initialImages);
 
   // Cargar u obtener las notas
   useEffect(() => {
