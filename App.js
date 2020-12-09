@@ -9,12 +9,16 @@ import { Entypo } from '@expo/vector-icons';
 import HomeScreen from "./src/screens/HomeScreen";
 import CarreteScreen from "./src/screens/CarreteScreen";
 
+import useDatabase from "./hooks/useDatabase";
+import {ImagesContextProvider} from "./src/context/ImagesContext";
+
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
 function MyTabs(){
 
   return(
+    
     <Tab.Navigator>
           <Tab.Screen name="Home" component={HomeScreen} options={{
 
@@ -29,18 +33,28 @@ function MyTabs(){
               <Entypo name="images" size={size} color={color} />
             )
           }} />
-        </Tab.Navigator>
+    </Tab.Navigator>
   )
 
 }
 
 
 export default function App(){
-  return (
-      <NavigationContainer>
-        <Stack.Navigator screenOptions={{headerShown:false}}>
-          <Stack.Screen name = "tabs" component={MyTabs}/>
-        </Stack.Navigator>
-      </NavigationContainer>
-  )
+  const isloadingComplete = useDatabase();
+  if(!isloadingComplete){
+    return(
+      <Text>No se ha cargado la base de datos</Text>
+    );
+  }
+  else{
+      return (
+      <ImagesContextProvider>
+        <NavigationContainer>
+          <Stack.Navigator screenOptions={{headerShown:false}}>
+            <Stack.Screen name = "tabs" component={MyTabs}/>
+          </Stack.Navigator>
+        </NavigationContainer>
+      </ImagesContextProvider>
+    )
+  }
 }
