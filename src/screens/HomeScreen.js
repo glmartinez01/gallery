@@ -2,6 +2,7 @@ import { Container, View,Header, Body, Title} from "native-base";
 import React from "react";
 import {StyleSheet,Text} from "react-native";
 import { AntDesign } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 //import {Header} from "native-base"
 
 
@@ -17,7 +18,7 @@ const HomeScreen = ({navigation}) => {
             </Header>
             <View style={{flex:1,justifyContent:"center",alignItems:"center"}}>
                 <Text>Pantalla de Inicio</Text>
-                <AntDesign onPress={()=> navigation.navigate("camera")} name="home" size={50} color={'#000'} />
+                <MaterialCommunityIcons onPress={()=> navigation.navigate("camera")} name="camera-outline" size={50} color={'#000'} />
                 
             </View>
         </Container>

@@ -1,10 +1,12 @@
-import { Container, View,Header, Body, Title} from "native-base";
+import { Container, View,Header, Body, Title, Left, Right} from "native-base";
 import React, { useState, useEffect } from 'react';
 import {StyleSheet,Text, TouchableOpacity} from "react-native";
+import { Ionicons } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 //import {Header} from "native-base"
 import { Camera } from 'expo-camera';
 
-const CameraScreen = () => {
+const CameraScreen = ({navigation}) => {
 
     const [hasPermission, setHasPermission] = useState(null);
         const [type, setType] = useState(Camera.Constants.Type.back);
@@ -23,38 +25,39 @@ const CameraScreen = () => {
             return <Text>No access to camera</Text>;
         }
         return (
-            <View style={{ flex: 1 }}>
-            <Camera style={{ flex: 1 }} type={type}>
-                <View
-                style={{
-                    flex: 1,
-                    backgroundColor: 'transparent',
-                    flexDirection: 'row',
-                }}>
-                <TouchableOpacity
+            
+            <Camera style={{ flex: 1 }} type={type} ratio={"16:9"}>
+                <Header noShadow androidStatusBarColor="#aaa"
                     style={{
-                    flex: 0.1,
-                    alignSelf: 'flex-end',
-                    alignItems: 'center',
-                    }}
-                    onPress={() => {
-                    setType(
-                        type === Camera.Constants.Type.back
-                        ? Camera.Constants.Type.front
-                        : Camera.Constants.Type.back
-                    );
+                        
+                        backgroundColor: 'transparent',
+                        
                     }}>
-                    <Text style={{ fontSize: 18, marginBottom: 10, color: 'white' }}> Flip </Text>
-                </TouchableOpacity>
-                </View>
+                    <Left>
+                        <Ionicons name="ios-arrow-back" size={35} color="white" style={{margin:5,padding:15}} onPress= {()=> navigation.goBack()} />
+                    </Left>
+                    <Right>
+                        <MaterialCommunityIcons name="camera-retake" size={35} onPress={() => {
+                            setType(
+                                type === Camera.Constants.Type.back
+                                ? Camera.Constants.Type.front
+                                : Camera.Constants.Type.back
+                            );
+                            }} color="white" />
+                    </Right>
+                    
+                    
+                </Header>
             </Camera>
-            </View>
+           
         );
 
 }
 
 const styles = StyleSheet.create({
-
+    icon:{
+        marginLeft:5
+    }
 });
 
 
