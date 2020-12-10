@@ -3,8 +3,6 @@ import React from "react";
 import {StyleSheet,Text} from "react-native";
 import { AntDesign } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import {Swiper} from 'react-native-swiper';
-import { Component } from "react";
 //import {Header} from "native-base"
 
 

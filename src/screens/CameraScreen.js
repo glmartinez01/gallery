@@ -1,6 +1,6 @@
 import { Container, View,Header, Body, Title, Left, Right, Footer, Content, FooterTab,Toast} from "native-base";
 import React, { useState, useEffect, useRef,useContext } from 'react';
-import {StyleSheet,Text, TouchableOpacity,Modal,Image,ToastAndroid,Platform} from "react-native";
+import {StyleSheet,Text, TouchableOpacity,Modal,ToastAndroid,Platform,Dimensions,StatusBar} from "react-native";
 import { Ionicons,AntDesign } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import * as Permissions from 'expo-permissions';
@@ -8,8 +8,10 @@ import * as MediaLibrary from 'expo-media-library';
 import { Camera } from 'expo-camera';
 import { log } from "react-native-reanimated";
 import { SafeAreaView } from "react-native-safe-area-context";
+import Image from 'react-native-scalable-image'
 
 import {ImagesContext} from "../context/ImagesContext"
+const {width, height} = Dimensions.get("window")
 
 const CameraScreen = ({navigation}) => {
 
@@ -71,7 +73,8 @@ const CameraScreen = ({navigation}) => {
         }
         if (hasPermission === false) {
             return <Text>No access to camera</Text>;
-        }
+        };
+        
         return (
             <SafeAreaView style={{flex:1,backgroundColor:"transparent"}}>
             <Camera style={{ flex: 1 }} type={type} ratio={"16:9"} ref={camRef}>
@@ -104,18 +107,12 @@ const CameraScreen = ({navigation}) => {
 
             {capturedPhoto &&
                 <Modal animationType="slide" transparent={false} visible={open}>
-                    <Header noShadow style={{backgroundColor:"transparent"}}>
-                        <Left>
-                            <Ionicons name="ios-arrow-back" size={35} color="black" style={{margin:5,padding:15}} onPress={()=>setOpen(false)} />
-                        </Left>
-                        
-                        <Right>
-                            <AntDesign name="upload" size={30} style={{marginRight:5,padding:10}} onPress={()=>{savePicture(); setOpen(false)}} color="black" />
-                        </Right>
-                    </Header>
-                    <View style={{flex:1, justifyContent:"center",alignItems:"center"}}>
-                        <Image style={{width:"100%", height:300,borderRadius:20}}
-                               source={{uri: capturedPhoto}}/>
+                    <Ionicons name="ios-arrow-back" size={35} color="white" style={{position:'absolute', zIndex:2,margin:5,padding:15}} onPress={()=>setOpen(false)} />
+                    
+                    <AntDesign name="upload" size={30} style={{position:'absolute', zIndex:2,marginLeft:'85%',margin:5,padding:10}} onPress={()=>{savePicture(); setOpen(false)}} color="white" />
+                    
+                    <View style={{flex:1, justifyContent:"center",alignItems:"center",position:'absolute', zIndex:1}}>
+                        <Image source={{uri: capturedPhoto}} height={height}/>
                     </View>
                 </Modal>
             }
