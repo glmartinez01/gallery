@@ -2,14 +2,17 @@ import React from "react";
 import {NavigationContainer} from "@react-navigation/native";
 import {createStackNavigator} from "@react-navigation/stack";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import {Text} from "native-base";
+import {Text, View} from "native-base";
+import {Swiper} from 'react-native-swiper';
+
+
 
 import { AntDesign } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 
 import HomeScreen from "./src/screens/HomeScreen";
 import CarreteScreen from "./src/screens/CarreteScreen";
-import CameraScreen from "./src/screens/CameraScreen";
+import CaptureCamera from "./src/screens/CameraScreen";
 
 import useDatabase from "./src/hooks/useDatabase";
 import {ImagesContextProvider} from "./src/context/ImagesContext";
@@ -21,7 +24,6 @@ const Stack = createStackNavigator();
 function MyTabs(){
 
   return(
-    
     <Tab.Navigator>
           <Tab.Screen name="Home" component={HomeScreen} options={{
 
@@ -37,6 +39,7 @@ function MyTabs(){
             )
           }} />
     </Tab.Navigator>
+    
   )
 
 }
@@ -55,7 +58,7 @@ export default function App(){
         <NavigationContainer>
           <Stack.Navigator screenOptions={{headerShown:false}}>
             <Stack.Screen name = "tabs" component={MyTabs}/>
-            <Stack.Screen name = "camera" component={CameraScreen}/>
+            <Stack.Screen name = "camera" component={CaptureCamera}/>
           </Stack.Navigator>
         </NavigationContainer>
       </ImagesContextProvider>
