@@ -6,8 +6,8 @@ const useDatabase = () => {
 
   const loadDatabase = async () => {
     try {
-      await database.dropDatabaseTableAsync();
-      await database.setupDatabaseTableAsync();
+      //await database.dropDatabaseTableAsync();
+      //await database.setupDatabaseTableAsync();
       //await database.setupImagesAsync();
 
       // Finaliza la carga de la DB

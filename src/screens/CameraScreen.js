@@ -93,6 +93,7 @@ const CameraScreen = ({navigation}) => {
                                 type === Camera.Constants.Type.back
                                 ? Camera.Constants.Type.front
                                 : Camera.Constants.Type.back
+            
                             );
                             }} color="white" />
                     </Right>

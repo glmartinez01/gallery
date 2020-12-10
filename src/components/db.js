@@ -27,12 +27,12 @@ const getImages = (setImagesFunc) => {
   });
 };
 
-// Insertar notas
-const insertImages = (note, successFunc) => {
+// Insertar imagen
+const insertImages = (image, successFunc) => {
   db.transaction(
     (tx) => {
       tx.executeSql("insert into images (image, status) values (?,?)", [
-        note,
+        image,
         "NUEVA",
       ]);
     },

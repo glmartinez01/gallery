@@ -1,17 +1,70 @@
-import { Container, View,Header, Body, Title, Right, Left} from "native-base";
-import React from "react";
-import {StyleSheet,Text} from "react-native";
+import { Container, View,Header, Body, Title, Right, Left, Card, List, ListItem} from "native-base";
+import React, {useContext,useEffect,useState} from "react";
+import {StyleSheet,Text,Platform,FlatList,Dimensions,Image} from "react-native";
 import { AntDesign } from '@expo/vector-icons';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons,Entypo } from '@expo/vector-icons';
 //import {Header} from "native-base"
+import {ImagesContext} from "../context/ImagesContext";
+import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
+import * as ImagePicker from 'expo-image-picker';
+import * as Permissions from 'expo-permissions';
+
+const {width, height} = Dimensions.get("window");
 
 
 const HomeScreen = ({navigation}) => {
+    const { images } = useContext(ImagesContext);
+    const [image, setImage] = useState(null);
+    const imagesContext = useContext(ImagesContext);
+    const {addNewImage, refreshImages} = imagesContext;
+
+    useEffect(() => {
+        (async () => {
+           
+            const { status } = await ImagePicker.getCameraRollPermissionsAsync();
+            if (status !== 'granted') {
+              alert('Sorry, we need camera roll permissions to make this work!');
+            }
+          
+        })();
+      }, []);
+
+    async function pickImage(){
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            allowsEditing: true,
+            aspect: [4, 3],
+            base64:true,
+            quality: 1,
+          });
+      
+          console.log(result.uri);
+      
+          if (!result.cancelled) {
+
+            try {
+                let message = 'data:image/png;base64, ' + result.base64;
+                //setImage(result.uri)
+                const resultado = result.uri;
+                addNewImage(resultado,refreshImages);
+                {console.log(images)}
+               
+
+            } catch (error) {
+                console.log(error);
+            }
+            
+
+          }
+    }
 
     return(
         
         <Container>
             <Header androidStatusBarColor="#333" style={{backgroundColor:"#fff"}}>
+                <Left>
+                  <Entypo name="add-to-list" size={24} color="black" onPress={pickImage} />
+                </Left>
                 <Body style={{backgroundColor:'#fff'}}>
                    <Text style={{borderBottomColor:"#fff",fontSize:20}}>Home</Text>
                 </Body>
@@ -19,9 +72,19 @@ const HomeScreen = ({navigation}) => {
                     <MaterialCommunityIcons onPress={()=> navigation.navigate("camera")} name="camera-outline" size={30} color={'#000'} />
                 </Right>
             </Header>
-            <View style={{flex:1,justifyContent:"center",alignItems:"center"}}>
-                <Text>Pantalla de Inicio</Text>
-            </View>
+
+            <ScrollView>
+              {console.log(images)}
+              {images
+                ? images.map((each) => (
+                    <Card key={each.id.toString()} style={{height:height*0.5, width:width*0.85}}>
+                       {console.log(each.image)}
+                      <Image source={{uri : each.image}}/>
+                    </Card>
+                  ))
+                : null}
+            
+            </ScrollView>
         </Container>
         
 
