@@ -5,7 +5,7 @@ import { Ionicons,AntDesign } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import * as Permissions from 'expo-permissions';
 import * as MediaLibrary from 'expo-media-library';
-import { Camera } from 'expo-camera';
+import { Camera, FlashMode } from 'expo-camera';
 import { log } from "react-native-reanimated";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Image from 'react-native-scalable-image'
@@ -22,6 +22,8 @@ const CameraScreen = ({navigation}) => {
         const [type, setType] = useState(Camera.Constants.Type.back);
         const [capturedPhoto,setCapturedPhoto] = useState(null);
         const [open,setOpen] = useState(false);
+        const [flash, setFlashMode] = React.useState('off')
+        
 
         const poptoast = () => {
             if (Platform.OS != 'android') {
@@ -57,16 +59,31 @@ const CameraScreen = ({navigation}) => {
         }
 
         //Salvar la foto a galeria
-        async function savePicture(){
-            const asset = await MediaLibrary.createAssetAsync(capturedPhoto)
-            const album = await MediaLibrary.createAlbumAsync("Gallery",asset,false)
-            .then(()=>{
-                poptoast();
-            })
-            .catch(error=>{
-                console.log(error)
-            })
-        }
+        const savePicture = () => {
+            // Validar que la imagen tiene valor
+            if (capturedPhoto) {
+              addNewImage(capturedPhoto, refreshImages);
+
+              // Refrescar las imagenes
+              refreshImages();
+
+              // Regresar a la pantalla anterior
+              setOpen(false);
+              navigation.goBack();
+            } else {
+              setErrorNote(true);
+            }
+        };
+        // async function savePicture(){
+        //     const asset = await MediaLibrary.createAssetAsync(capturedPhoto)
+        //     const album = await MediaLibrary.createAlbumAsync("Gallery",asset,false)
+        //     .then(()=>{
+        //         poptoast();
+        //     })
+        //     .catch(error=>{
+        //         console.log(error)
+        //     })
+        // }
 
         if (hasPermission === null) {
             return <View />;
@@ -74,28 +91,65 @@ const CameraScreen = ({navigation}) => {
         if (hasPermission === false) {
             return <Text>No access to camera</Text>;
         };
+
+        // Estados del flash
+        const _handleFlash = () => {
+            if (Platform.OS != 'android') {
+                if (flash === 'on') {
+                    setFlashMode('auto')
+                    Toast.show({text: 'Flash: Auto',duration: 1500});
+                }else if (flash === 'auto') {
+                    setFlashMode('off')
+                    Toast.show({text: 'Flash: Off',duration: 1500});
+                }else{ 
+                    setFlashMode('on')
+                    Toast.show({text: 'Flash: On',duration: 1500});
+                }
+            } else {
+                if (flash === 'on') {
+                    setFlashMode('auto')
+                    ToastAndroid.show('Flash: Auto', ToastAndroid.LONG);
+                } else if (flash === 'auto') {
+                    setFlashMode('off')
+                    ToastAndroid.show('Flash: Off', ToastAndroid.LONG);
+                } else {
+                    setFlashMode('on')
+                    ToastAndroid.show('Flash: On', ToastAndroid.LONG);
+                }
+            }
+        }
+
+        // Orientacion de la camara
+        const _handletap = () => {
+            if (type === 'front') {
+                setType('back')
+            }else {
+                setType('front')
+            }
+        }
         
         return (
             <SafeAreaView style={{flex:1,backgroundColor:"transparent"}}>
-            <Camera style={{ flex: 1 }} type={type} ratio={"16:9"} ref={camRef}>
+            <Camera style={{ flex: 1 }} type={type} ratio={"16:9"} ref={camRef} flashMode={flash} autoFocus={'on'}>
                 <Header noShadow androidStatusBarColor="#333"
                     style={{
-                        
                         backgroundColor: 'transparent',
-                        
                     }}>
                     <Left>
                         <Ionicons name="ios-arrow-back" size={35} color="white" style={{margin:5,padding:15}} onPress= {()=> navigation.goBack()} />
                     </Left>
+                    <TouchableOpacity onPress= {_handleFlash} style={{alignItems:"center", justifyContent:"center", marginLeft:'20%'}}>
+                        {flash === 'on' ?
+                            <MaterialCommunityIcons name="flash" size={35} color="white" />:
+                            flash === 'auto' ? <MaterialCommunityIcons name="flash-auto" size={35} color="white" />:
+                            <MaterialCommunityIcons name="flash-off" size={35} color="white" />
+                        }
+                    </TouchableOpacity>
                     <Right>
-                        <MaterialCommunityIcons name="camera-retake" size={35} onPress={() => {
-                            setType(
-                                type === Camera.Constants.Type.back
-                                ? Camera.Constants.Type.front
-                                : Camera.Constants.Type.back
-            
-                            );
-                            }} color="white" />
+                        {type === 'front' ? 
+                            <MaterialCommunityIcons name="camera-account" size={35} onPress={_handletap} color="white" /> 
+                            : <MaterialCommunityIcons name="camera" size={35} onPress={_handletap} color="white" />
+                        } 
                     </Right>
                 </Header>
                 <Content></Content>

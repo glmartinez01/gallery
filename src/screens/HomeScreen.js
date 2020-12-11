@@ -1,13 +1,13 @@
 import { Container, View,Header, Body, Title, Right, Left, Card, List, ListItem} from "native-base";
 import React, {useContext,useEffect,useState} from "react";
-import {StyleSheet,Text,Platform,FlatList,Dimensions,Image} from "react-native";
+import {StyleSheet,Text,Platform,FlatList,Dimensions} from "react-native";
 import { AntDesign } from '@expo/vector-icons';
 import { MaterialCommunityIcons,Entypo } from '@expo/vector-icons';
 //import {Header} from "native-base"
 import {ImagesContext} from "../context/ImagesContext";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import * as ImagePicker from 'expo-image-picker';
-import * as Permissions from 'expo-permissions';
+import Image from 'react-native-scalable-image'
 
 const {width, height} = Dimensions.get("window");
 
@@ -32,7 +32,7 @@ const HomeScreen = ({navigation}) => {
     async function pickImage(){
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.All,
-            allowsEditing: true,
+            allowsEditing: false,
             aspect: [4, 3],
             base64:true,
             quality: 1,
@@ -48,6 +48,7 @@ const HomeScreen = ({navigation}) => {
                 const resultado = result.uri;
                 addNewImage(resultado,refreshImages);
                 {console.log(images)}
+                refreshImages();
                
 
             } catch (error) {
@@ -77,9 +78,9 @@ const HomeScreen = ({navigation}) => {
               {console.log(images)}
               {images
                 ? images.map((each) => (
-                    <Card key={each.id.toString()} style={{height:height*0.5, width:width*0.85}}>
+                    <Card key={each.id.toString()} style={{width:width*0.85}}>
                        {console.log(each.image)}
-                      <Image source={{uri : each.image}}/>
+                      <Image source={{uri : each.image}} width={width*0.85} style={{borderRadius:10}}/>
                     </Card>
                   ))
                 : null}

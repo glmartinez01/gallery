@@ -29,6 +29,7 @@ export const ImagesContextProvider = (props) => {
   const imageContext = {
     images,
     addNewImage,
+    refreshImages,
   };
 
   // Pasar los valores al proveedor y retornarlo
