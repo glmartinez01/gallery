@@ -1,6 +1,6 @@
 import { Container, View,Header, Body, Title, Right, Left, Card, List, ListItem} from "native-base";
 import React, {useContext,useEffect,useState} from "react";
-import {StyleSheet,Text,Platform,FlatList,Dimensions} from "react-native";
+import {StyleSheet,Text,Platform,FlatList,Dimensions, StatusBar} from "react-native";
 import { AntDesign } from '@expo/vector-icons';
 import { MaterialCommunityIcons,Entypo } from '@expo/vector-icons';
 //import {Header} from "native-base"
@@ -54,32 +54,35 @@ const HomeScreen = ({navigation}) => {
             } catch (error) {
                 console.log(error);
             }
-            
-
           }
     }
-
+    StatusBar.setHidden(true, 'none');
     return(
         
-        <Container>
-            <Header androidStatusBarColor="#333" style={{backgroundColor:"#fff"}}>
-                <Left>
-                  <Entypo name="add-to-list" size={24} color="black" onPress={pickImage} />
-                </Left>
-                <Body style={{backgroundColor:'#fff'}}>
-                   <Text style={{borderBottomColor:"#fff",fontSize:20}}>Home</Text>
-                </Body>
-                <Right>
-                    <MaterialCommunityIcons onPress={()=> navigation.navigate("camera")} name="camera-outline" size={30} color={'#000'} />
-                </Right>
-            </Header>
+      <Container>
+        <View>
+        <View style={styles.triangle}/>
+          <View style={styles.square}/>
+        </View>
+        <View>
+          <View style={{position:'absolute', left:width*0.06, top:height*0.04}}>
+            <Entypo name="add-to-list" size={24} color="black" onPress={pickImage} /> 
+          </View>
+          <View style={{position:'absolute', left:width*0.25, top:height*0.04}}>
+            <Text style={{fontSize:20}}>Home</Text>
+          </View>  
+          <View style={{position:'absolute', right:width*0.06, top:height*0.04}}>
+            <MaterialCommunityIcons onPress={()=> navigation.navigate("camera")} name="camera-outline" size={30} color={'#000'} />
+          </View>
+        </View>
 
+        <View style={{alignItems:"center", justifyContent:"center", flex:1, marginTop:height*0.15}}>
             <ScrollView>
               {console.log(images)}
               {images
                 ? images.map((each) => (
                   <TouchableOpacity key={each.id.toString()} onPress={()=>{navigation.navigate("imageScreen",{id:each.id,uri:each.image})}}>
-                    <Card  style={{width:width*0.85,alignSelf:"center"}}>
+                    <Card  style={{width:width*0.85, borderRadius:10, borderWidth:3}}>
                        {console.log(each.image)}
                       <Image source={{uri : each.image}} width={width*0.85} style={{borderRadius:10}}/>
                     </Card>
@@ -88,6 +91,7 @@ const HomeScreen = ({navigation}) => {
                 : null}
             
             </ScrollView>
+          </View>
         </Container>
         
 
@@ -96,6 +100,45 @@ const HomeScreen = ({navigation}) => {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#ffdbcf',
+  },
+  triangle: {
+    position: 'absolute',
+    right: 0,
+    left: 0,
+    width: 0,
+    height: 0,
+    backgroundColor: 'white',
+    borderStyle: 'solid',
+    borderTopWidth: height*0.21,
+    borderLeftWidth: 0,
+    borderRightWidth: height*0.21,
+    borderBottomWidth: 0,
+    borderTopColor: '#ffdbcf',
+    borderLeftColor: 'transparent',
+    borderRightColor: 'transparent',
+    borderBottomColor: 'transparent',
+  },
+  square: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: 0,
+    height: 0,
+    backgroundColor: '#ffdbcf',
+    borderStyle: 'solid',
+    borderTopWidth: height*0.055,
+    borderLeftWidth: width,
+    borderRightWidth:width,
+    borderBottomWidth: height*0.055,
+    borderTopColor: '#ffdbcf',
+    borderLeftColor: '#ffdbcf',
+    borderRightColor: '#ffdbcf',
+    borderBottomColor: '#ffdbcf',
+    
+  },
 
 });
 
