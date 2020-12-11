@@ -12,6 +12,7 @@ import { Entypo } from '@expo/vector-icons';
 import HomeScreen from "./src/screens/HomeScreen";
 import CarreteScreen from "./src/screens/CarreteScreen";
 import CaptureCamera from "./src/screens/CameraScreen";
+import imageScreen from "./src/screens/imageScreen";
 
 import useDatabase from "./src/hooks/useDatabase";
 import {ImagesContextProvider} from "./src/context/ImagesContext";
@@ -58,6 +59,7 @@ export default function App(){
           <Stack.Navigator screenOptions={{headerShown:false}}>
             <Stack.Screen name = "tabs" component={MyTabs}/>
             <Stack.Screen name = "camera" component={CaptureCamera}/>
+            <Stack.Screen name = "imageScreen" component={imageScreen}/>
           </Stack.Navigator>
         </NavigationContainer>
       </ImagesContextProvider>

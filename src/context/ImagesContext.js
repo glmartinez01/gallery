@@ -25,10 +25,15 @@ export const ImagesContextProvider = (props) => {
     return database.insertImages(image, refreshImages);
   };
 
+  const deleteImage = (image) => {
+    return database.deleteImages(image, refreshImages);
+  };
+
   // Crear el objeto de contexto
   const imageContext = {
     images,
     addNewImage,
+    deleteImage,
     refreshImages,
   };
 

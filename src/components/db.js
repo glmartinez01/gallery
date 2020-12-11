@@ -46,6 +46,24 @@ const insertImages = (image, successFunc) => {
   );
 };
 
+const deleteImages = (idimage, successFunc) => {
+  db.transaction(
+    (tx) => {
+      tx.executeSql("delete from images where id = ?", [
+        idimage,
+      ]);
+    },
+    (_t, error) => {
+      console.log("Error al eliminar la imagen");
+      console.log(error);
+    },
+    (_t, _success) => {
+      successFunc;
+    }
+  );
+};
+
+
 // Borrar la base de datos
 const dropDatabaseTableAsync = async () => {
   return new Promise((resolve, reject) => {
@@ -111,6 +129,7 @@ const setupImagesAsync = async () => {
 export const database = {
   getImages,
   insertImages,
+  deleteImages,
   dropDatabaseTableAsync,
   setupDatabaseTableAsync,
   setupImagesAsync,

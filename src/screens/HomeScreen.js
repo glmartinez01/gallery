@@ -78,10 +78,12 @@ const HomeScreen = ({navigation}) => {
               {console.log(images)}
               {images
                 ? images.map((each) => (
-                    <Card key={each.id.toString()} style={{width:width*0.85}}>
+                  <TouchableOpacity key={each.id.toString()} onPress={()=>{navigation.navigate("imageScreen",{id:each.id,uri:each.image})}}>
+                    <Card  style={{width:width*0.85,alignSelf:"center"}}>
                        {console.log(each.image)}
                       <Image source={{uri : each.image}} width={width*0.85} style={{borderRadius:10}}/>
                     </Card>
+                    </TouchableOpacity>
                   ))
                 : null}
             

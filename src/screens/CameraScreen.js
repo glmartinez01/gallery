@@ -1,8 +1,7 @@
 import { Container, View,Header, Body, Title, Left, Right, Footer, Content, FooterTab,Toast} from "native-base";
 import React, { useState, useEffect, useRef,useContext } from 'react';
 import {StyleSheet,Text, TouchableOpacity,Modal,ToastAndroid,Platform,Dimensions,StatusBar} from "react-native";
-import { Ionicons,AntDesign } from '@expo/vector-icons';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { Ionicons,AntDesign,MaterialCommunityIcons } from '@expo/vector-icons';
 import * as Permissions from 'expo-permissions';
 import * as MediaLibrary from 'expo-media-library';
 import { Camera, FlashMode } from 'expo-camera';
