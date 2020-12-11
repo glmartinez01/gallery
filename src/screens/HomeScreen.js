@@ -61,42 +61,38 @@ const HomeScreen = ({navigation}) => {
         
       <Container>
         <View>
-        <View style={styles.triangle}/>
+          <View style={styles.triangle}/>
           <View style={styles.square}/>
         </View>
         <View>
           <View style={{position:'absolute', left:width*0.06, top:height*0.04}}>
-            <Entypo name="add-to-list" size={24} color="black" onPress={pickImage} /> 
+            <Entypo name="add-to-list" size={24} color="#3c1e22" onPress={pickImage} /> 
           </View>
           <View style={{position:'absolute', left:width*0.25, top:height*0.04}}>
-            <Text style={{fontSize:20}}>Home</Text>
+            <Text style={{fontSize:20,color:'#3c1e22'}}>Home</Text>
           </View>  
           <View style={{position:'absolute', right:width*0.06, top:height*0.04}}>
-            <MaterialCommunityIcons onPress={()=> navigation.navigate("camera")} name="camera-outline" size={30} color={'#000'} />
+            <MaterialCommunityIcons onPress={()=> navigation.navigate("camera")} name="camera-outline" size={30} color={'#3c1e22'} />
           </View>
         </View>
 
         <View style={{alignItems:"center", justifyContent:"center", flex:1, marginTop:height*0.15}}>
-            <ScrollView>
+            <ScrollView showsVerticalScrollIndicator={false}>
               {console.log(images)}
               {images
                 ? images.map((each) => (
                   <TouchableOpacity key={each.id.toString()} onPress={()=>{navigation.navigate("imageScreen",{id:each.id,uri:each.image})}}>
-                    <Card  style={{width:width*0.85, borderRadius:10, borderWidth:3}}>
+                    <Card  style={{width:width*0.85, borderRadius:10, borderWidth:3, alignItems:'center'}}>
                        {console.log(each.image)}
                       <Image source={{uri : each.image}} width={width*0.85} style={{borderRadius:10}}/>
                     </Card>
                     </TouchableOpacity>
                   ))
-                : null}
-            
+                : <Text>Guarda algunas Fotos!!</Text>}
             </ScrollView>
           </View>
         </Container>
-        
-
     )
-
 }
 
 const styles = StyleSheet.create({
@@ -112,9 +108,9 @@ const styles = StyleSheet.create({
     height: 0,
     backgroundColor: 'white',
     borderStyle: 'solid',
-    borderTopWidth: height*0.21,
+    borderTopWidth: height*0.19,
     borderLeftWidth: 0,
-    borderRightWidth: height*0.21,
+    borderRightWidth: height*0.19,
     borderBottomWidth: 0,
     borderTopColor: '#ffdbcf',
     borderLeftColor: 'transparent',
@@ -137,7 +133,6 @@ const styles = StyleSheet.create({
     borderLeftColor: '#ffdbcf',
     borderRightColor: '#ffdbcf',
     borderBottomColor: '#ffdbcf',
-    
   },
 
 });
