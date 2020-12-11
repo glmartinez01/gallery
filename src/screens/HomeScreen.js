@@ -8,6 +8,7 @@ import {ImagesContext} from "../context/ImagesContext";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import * as ImagePicker from 'expo-image-picker';
 import Image from 'react-native-scalable-image'
+import { color } from "react-native-reanimated";
 
 const {width, height} = Dimensions.get("window");
 
@@ -56,7 +57,7 @@ const HomeScreen = ({navigation}) => {
             }
           }
     }
-    StatusBar.setHidden(true, 'none');
+    StatusBar.setTranslucent(true);
     return(
         
       <Container>
@@ -108,9 +109,9 @@ const styles = StyleSheet.create({
     height: 0,
     backgroundColor: 'white',
     borderStyle: 'solid',
-    borderTopWidth: height*0.19,
+    borderTopWidth: height*0.17,
     borderLeftWidth: 0,
-    borderRightWidth: height*0.19,
+    borderRightWidth: height*0.17,
     borderBottomWidth: 0,
     borderTopColor: '#ffdbcf',
     borderLeftColor: 'transparent',

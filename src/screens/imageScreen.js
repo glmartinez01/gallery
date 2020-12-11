@@ -67,10 +67,10 @@ const imageScreen = ({route,navigation}) => {
             
             <View>
                 <View style={styles.triangle}/>
-                <View style={styles.triangle3}/>
+                
                 <View style={styles.square}/>
                 <View style={styles.triangle2}/>
-                <View style={styles.triangle4}/>
+                
                 <View style={styles.square2}/>
             </View>
             <View>
@@ -85,8 +85,10 @@ const imageScreen = ({route,navigation}) => {
             <View style={{flex:1,justifyContent:"center", alignItems:"center"}}>
                 <Image source={{uri:uri}} width={width*0.7} />
             </View>
+            <Footer style={{backgroundColor:"transparent"}}>
+                <MaterialCommunityIcons name="trash-can-outline" size={50} color="#3c1e22" style={{position:"absolute", bottom:height*0.01, alignSelf:"center"}} onPress={twoButtonAlert} />
+            </Footer>
             
-            <MaterialCommunityIcons name="trash-can-outline" size={50} color="#3c1e22" style={{position:"absolute", bottom:height*0.01, alignSelf:"center"}} onPress={twoButtonAlert} />
         </Container>
 
     )
@@ -134,7 +136,7 @@ const styles = StyleSheet.create({
     },
     triangle2:{
         position: 'absolute',
-        top: height*0.82,
+        top: height*0.85,
         left: width*0.67,
         width: 0,
         height: 0,
@@ -151,7 +153,7 @@ const styles = StyleSheet.create({
     },
     square2: {
         position: 'absolute',
-        top: height*0.9,
+        top: height*0.95,
         left: 0,
         width: 0,
         height: 0,
