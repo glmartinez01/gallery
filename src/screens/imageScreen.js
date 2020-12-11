@@ -200,9 +200,4 @@ const styles = StyleSheet.create({
   
 });
 
-
 export default imageScreen;
-
-{/* <View>
-                <MaterialCommunityIcons name="trash-can-outline" size={50} color="black" style={{alignSelf:"center"}} onPress={twoButtonAlert} />
-            </View> */}

@@ -9,7 +9,7 @@ const CarreteScreen = () => {
     return(
 
         <Container>
-            <Header androidStatusBarColor="#aaa" style={{backgroundColor:"#fff"}}>
+            <Header style={{backgroundColor:"#fff"}}>
                 <Body style={{backgroundColor:'#fff',alignItems:"center"}}>
                    <Text style={{borderBottomColor:"#fff",fontSize:20}}>Images</Text>
                 </Body>
@@ -31,10 +31,6 @@ const CarreteScreen = () => {
                     </Card>
                 </View>
             </View>
-                        
-                       
-                 
-            
         </Container>
 
     )

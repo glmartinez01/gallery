@@ -81,7 +81,7 @@ const HomeScreen = ({navigation}) => {
             <ScrollView showsVerticalScrollIndicator={false}>
               {console.log(images)}
               {images
-                ? images.map((each) => (
+                ? images.reverse().map((each) => (
                   <TouchableOpacity key={each.id.toString()} onPress={()=>{navigation.navigate("imageScreen",{id:each.id,uri:each.image})}}>
                     <Card  style={{width:width*0.85, borderRadius:10, borderWidth:3, alignItems:'center'}}>
                        {console.log(each.image)}
