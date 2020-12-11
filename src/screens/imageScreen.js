@@ -85,7 +85,7 @@ const imageScreen = ({route,navigation}) => {
             <View style={{flex:1,justifyContent:"center", alignItems:"center"}}>
                 <Image source={{uri:uri}} width={width*0.7} />
             </View>
-            <Footer style={{backgroundColor:"transparent"}}>
+            <Footer style={{backgroundColor:"#ffdbcf"}}>
                 <MaterialCommunityIcons name="trash-can-outline" size={50} color="#3c1e22" style={{position:"absolute", bottom:height*0.01, alignSelf:"center"}} onPress={twoButtonAlert} />
             </Footer>
             
@@ -118,20 +118,15 @@ const styles = StyleSheet.create({
     },
     square: {
       position: 'absolute',
-      zIndex:0,
       top: 0,
       left: 0,
-      width: 0,
+      width: width,
       height: 0,
       backgroundColor: '#ffdbcf',
       borderStyle: 'solid',
       borderTopWidth: height*0.055,
-      borderLeftWidth: width,
-      borderRightWidth:width,
       borderBottomWidth: height*0.055,
       borderTopColor: '#ffdbcf',
-      borderLeftColor: '#ffdbcf',
-      borderRightColor: '#ffdbcf',
       borderBottomColor: '#ffdbcf',
     },
     triangle2:{
