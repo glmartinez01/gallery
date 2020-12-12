@@ -5,6 +5,7 @@ import { AntDesign } from '@expo/vector-icons';
 import { MaterialCommunityIcons,Entypo } from '@expo/vector-icons';
 //import {Header} from "native-base"
 import {ImagesContext} from "../context/ImagesContext";
+import {AlbumsContext} from "../context/AlbumsContext";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import * as ImagePicker from 'expo-image-picker';
 import Image from 'react-native-scalable-image'
@@ -14,8 +15,18 @@ const {width, height} = Dimensions.get("window");
 
 
 const HomeScreen = ({navigation}) => {
+
+    //Arreglo de imagenes
     const { images } = useContext(ImagesContext);
+
+    //Arreglo de albumes
+
+    const { albums } = useContext(AlbumsContext);
+
     const [image, setImage] = useState(null);
+    const [album,setAlbum] = useState(null);
+
+    //Funciones para insert y refresh Imagenes
     const imagesContext = useContext(ImagesContext);
     const {addNewImage, refreshImages} = imagesContext;
 
@@ -47,8 +58,9 @@ const HomeScreen = ({navigation}) => {
                 let message = 'data:image/png;base64, ' + result.base64;
                 //setImage(result.uri)
                 const resultado = result.uri;
-                addNewImage(resultado,refreshImages);
+                addNewImage(resultado,album,refreshImages);
                 {console.log(images)}
+                {console.log(albums)}
                 refreshImages();
                
 

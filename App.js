@@ -16,6 +16,7 @@ import imageScreen from "./src/screens/imageScreen";
 
 import useDatabase from "./src/hooks/useDatabase";
 import {ImagesContextProvider} from "./src/context/ImagesContext";
+import {AlbumsContextProvider} from "./src/context/AlbumsContext";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -32,7 +33,7 @@ function MyTabs(){
             )
             
           }} />
-          <Tab.Screen name="Images" component={CarreteScreen} options={{
+          <Tab.Screen name="Albums" component={CarreteScreen} options={{
 
             tabBarIcon:({color,size}) =>(
               <Entypo name="images" size={size} color={color} />
@@ -49,20 +50,24 @@ export default function App(){
   const isloadingComplete = useDatabase();
   if(!isloadingComplete){
     return(
+      <View style={{flex:1, alignItems:"center",justifyContent:"center"}}>
       <Text>No se ha cargado la base de datos</Text>
+      </View>
     );
   }
   else{
       return (
-      <ImagesContextProvider>
-        <NavigationContainer>
-          <Stack.Navigator screenOptions={{headerShown:false}}>
-            <Stack.Screen name = "tabs" component={MyTabs}/>
-            <Stack.Screen name = "camera" component={CaptureCamera}/>
-            <Stack.Screen name = "imageScreen" component={imageScreen}/>
-          </Stack.Navigator>
-        </NavigationContainer>
-      </ImagesContextProvider>
+      <AlbumsContextProvider>
+        <ImagesContextProvider>
+          <NavigationContainer>
+            <Stack.Navigator screenOptions={{headerShown:false}}>
+              <Stack.Screen name = "tabs" component={MyTabs}/>
+              <Stack.Screen name = "camera" component={CaptureCamera}/>
+              <Stack.Screen name = "imageScreen" component={imageScreen}/>
+            </Stack.Navigator>
+          </NavigationContainer>
+        </ImagesContextProvider>
+      </AlbumsContextProvider>
     )
   }
 }

@@ -21,8 +21,8 @@ export const ImagesContextProvider = (props) => {
     return database.getImages(setImages);
   };
 
-  const addNewImage = (image) => {
-    return database.insertImages(image, refreshImages);
+  const addNewImage = (image,album) => {
+    return database.insertImages(image,album,refreshImages);
   };
 
   const deleteImage = (image) => {
