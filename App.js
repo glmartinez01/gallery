@@ -13,6 +13,7 @@ import HomeScreen from "./src/screens/HomeScreen";
 import CarreteScreen from "./src/screens/CarreteScreen";
 import CaptureCamera from "./src/screens/CameraScreen";
 import imageScreen from "./src/screens/imageScreen";
+import ImagesByAlbumScreen from "./src/screens/imagesbyAlbumScreen";
 
 import useDatabase from "./src/hooks/useDatabase";
 import {ImagesContextProvider} from "./src/context/ImagesContext";
@@ -64,6 +65,7 @@ export default function App(){
               <Stack.Screen name = "tabs" component={MyTabs}/>
               <Stack.Screen name = "camera" component={CaptureCamera}/>
               <Stack.Screen name = "imageScreen" component={imageScreen}/>
+              <Stack.Screen name = "imagesbyAlbumScreen" component={ImagesByAlbumScreen}/>
             </Stack.Navigator>
           </NavigationContainer>
         </ImagesContextProvider>

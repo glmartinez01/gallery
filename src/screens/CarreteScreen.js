@@ -8,7 +8,7 @@ import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
 
 const {width, height} = Dimensions.get("window")
 
-const CarreteScreen = () => {
+const CarreteScreen = ({navigation}) => {
 
     const [album,setAlbum] = useState(null);
     const [open,setOpen] = useState(false);
@@ -76,7 +76,7 @@ const CarreteScreen = () => {
                         renderItem={({item}) => {
                                 return(
                                     <View style={{flex:1, alignItems:"center"}}>
-                                        <TouchableOpacity >
+                                        <TouchableOpacity onPress={()=>{navigation.navigate("imagesbyAlbumScreen",{id:item.id})}} >
                                             <Card style={styles.gallery}>
                                                 
                                                 <Text style={styles.texto}>

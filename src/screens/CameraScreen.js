@@ -19,6 +19,7 @@ const CameraScreen = ({navigation}) => {
         const imagesContext = useContext(ImagesContext);
         const {addNewImage,refreshImages} = imagesContext
         const [type, setType] = useState(Camera.Constants.Type.back);
+        const [album,setAlbum] = useState(null);
         const [capturedPhoto,setCapturedPhoto] = useState(null);
         const [open,setOpen] = useState(false);
         const [flash, setFlashMode] = React.useState('off')
@@ -61,7 +62,7 @@ const CameraScreen = ({navigation}) => {
         const savePicture = () => {
             // Validar que la imagen tiene valor
             if (capturedPhoto) {
-              addNewImage(capturedPhoto, refreshImages);
+              addNewImage(capturedPhoto,album,refreshImages);
 
               // Refrescar las imagenes
               refreshImages();

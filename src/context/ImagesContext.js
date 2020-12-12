@@ -11,11 +11,25 @@ export const ImagesContextProvider = (props) => {
 
   // Almacenar los valores en el estado
   const [images, setImages] = useState(initialImages);
+  const [image, setImage] = useState("");
 
   // Cargar u obtener las notas
   useEffect(() => {
     refreshImages();
   }, []);
+
+  const getImageByAlbumId = (id) => {
+    return database.getImageByAlbum(id, setImage);
+
+    console.log(response);
+
+    // Obtener el valor de la primera posición del arreglo
+    // const value = note[0];
+    // setNote(value);
+
+    // console.log(value);
+    // console.log(note);
+  };
 
   const refreshImages = () => {
     return database.getImages(setImages);
@@ -32,6 +46,8 @@ export const ImagesContextProvider = (props) => {
   // Crear el objeto de contexto
   const imageContext = {
     images,
+    image,
+    getImageByAlbumId,
     addNewImage,
     deleteImage,
     refreshImages,

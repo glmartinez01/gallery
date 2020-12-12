@@ -7,6 +7,25 @@ const db = SQLite.openDatabase("gallery.db");
 
 // Funcionalidades de la base de datos
 
+const getImageByAlbum = (id, setImagesFunc) => {
+  db.transaction((tx) => {
+    tx.executeSql(
+      "select * from images where album = ?",
+      [id],
+      (_, { rows: { _array } }) => {
+        setImagesFunc(_array);
+      },
+      (_t, error) => {
+        console.log("Error al momento de obtener las imagenes");
+        console.log(error);
+      },
+      (_t, _success) => {
+        console.log("Imagenes obtenidas");
+      }
+    );
+  });
+};
+
 // Obtener las imagenes del usuario
 const getImages = (setImagesFunc) => {
   db.transaction((tx) => {
@@ -251,6 +270,7 @@ const setupAlbumsAsync = async () => {
 
 
 export const database = {
+  getImageByAlbum,
   getImages,
   getAlbums,
   insertImages,

@@ -58,7 +58,7 @@ const HomeScreen = ({navigation}) => {
                 let message = 'data:image/png;base64, ' + result.base64;
                 //setImage(result.uri)
                 const resultado = result.uri;
-                addNewImage(resultado,album,refreshImages);
+                addNewImage(resultado,1,refreshImages);
                 {console.log(images)}
                 {console.log(albums)}
                 refreshImages();
@@ -94,7 +94,7 @@ const HomeScreen = ({navigation}) => {
             <ScrollView showsVerticalScrollIndicator={false}>
               {console.log(images)}
               {images
-                ? images.reverse().map((each) => (
+                ? images.map((each) => (
                   <TouchableOpacity key={each.id.toString()} onPress={()=>{navigation.navigate("imageScreen",{id:each.id,uri:each.image})}}>
                     <Card  style={{width:width*0.85, borderRadius:10, borderWidth:3, alignItems:'center'}}>
                        {console.log(each.image)}
