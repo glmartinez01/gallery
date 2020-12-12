@@ -1,7 +1,7 @@
 import { Button, Container, Content, Footer, Left, Right, View,Toast } from "native-base";
 import React, {useState,useContext,useEffect} from "react";
 import {Header} from "native-base";
-import {StyleSheet, Dimensions,Text,Platform,ToastAndroid,Alert} from "react-native";
+import {StyleSheet, Dimensions,Text,Platform,ToastAndroid,Alert,StatusBar} from "react-native";
 import { AntDesign,Ionicons,MaterialCommunityIcons } from '@expo/vector-icons';
 import * as MediaLibrary from 'expo-media-library';
 
@@ -60,6 +60,8 @@ const imageScreen = ({route,navigation}) => {
       { cancelable: true }
     );
 
+    
+
     return(
 
         <Container>
@@ -69,6 +71,7 @@ const imageScreen = ({route,navigation}) => {
                 <View style={styles.triangle2}/>
             </View>
             <Header style={{backgroundColor:"#ffdbcf"}}>
+                <StatusBar backgroundColor="#ffdbcf" />
                 <Left>
                     <Ionicons name="ios-arrow-back" size={35} style={{margin:4,padding:15}} color="#3c1e22" onPress= {()=> navigation.goBack()} /> 
                 </Left>
@@ -112,7 +115,7 @@ const styles = StyleSheet.create({
     },
     triangle2:{
         position: 'absolute',
-        top: height*0.85,
+        top: height*0.82,
         left: width*0.67,
         width: 0,
         height: 0,

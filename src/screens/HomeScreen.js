@@ -69,22 +69,23 @@ const HomeScreen = ({navigation}) => {
             }
           }
     }
-    StatusBar.setTranslucent(true);
+    
     return(
         
       <Container>
+        <StatusBar backgroundColor="#ffdbcf" />
         <View>
           <View style={styles.triangle}/>
           <View style={styles.square}/>
         </View>
         <View>
-          <View style={{position:'absolute', left:width*0.06, top:height*0.04}}>
+          <View style={{position:'absolute', left:width*0.06, top:height*0.027}}>
             <Entypo name="add-to-list" size={24} color="#3c1e22" onPress={pickImage} /> 
           </View>
-          <View style={{position:'absolute', left:width*0.25, top:height*0.04}}>
+          <View style={{position:'absolute', left:width*0.25, top:height*0.027}}>
             <Text style={{fontSize:20,color:'#3c1e22'}}>Home</Text>
           </View>  
-          <View style={{position:'absolute', right:width*0.06, top:height*0.04}}>
+          <View style={{position:'absolute', right:width*0.06, top:height*0.027}}>
             <MaterialCommunityIcons onPress={()=> navigation.navigate("camera")} name="camera-outline" size={30} color={'#3c1e22'} />
           </View>
         </View>
@@ -121,9 +122,9 @@ const styles = StyleSheet.create({
     height: 0,
     backgroundColor: 'white',
     borderStyle: 'solid',
-    borderTopWidth: height*0.17,
+    borderTopWidth: height*0.16,
     borderLeftWidth: 0,
-    borderRightWidth: height*0.17,
+    borderRightWidth: height*0.16,
     borderBottomWidth: 0,
     borderTopColor: '#ffdbcf',
     borderLeftColor: 'transparent',
@@ -138,8 +139,8 @@ const styles = StyleSheet.create({
     height: 0,
     backgroundColor: '#ffdbcf',
     borderStyle: 'solid',
-    borderTopWidth: height*0.055,
-    borderBottomWidth: height*0.055,
+    borderTopWidth: height*0.048,
+    borderBottomWidth: height*0.048,
     borderTopColor: '#ffdbcf',
     borderBottomColor: '#ffdbcf',
   },

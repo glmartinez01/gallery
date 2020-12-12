@@ -40,20 +40,21 @@ const CarreteScreen = () => {
         if (album) setAlbumError(false)
     }, [album]);
 
-    StatusBar.setTranslucent(true);
+    
     return(
         
         <Container>
             {/*Header */}
+            <StatusBar backgroundColor="#ffdbcf" />
             <View>
                 <View style={styles.triangle}/>
                 <View style={styles.square}/>
             </View>
             <View>
-                <View style={{position:'absolute', left:width*0.06, top:height*0.04}}>
+                <View style={{position:'absolute', left:width*0.06, top:height*0.027}}>
                     <AntDesign name="addfolder" size={24} color="black" onPress={()=>{setOpen(true)}}/> 
                 </View>
-                <View style={{position:'absolute', left:width*0.25, top:height*0.04}}>
+                <View style={{position:'absolute', left:width*0.25, top:height*0.027}}>
                     <Text style={{fontSize:20,color:'#3c1e22'}}>Albums</Text>
                 </View>  
             </View>
@@ -61,6 +62,7 @@ const CarreteScreen = () => {
             <FlatList
                         numColumns={2}
                         style={{borderRadius:1}}
+                        showsVerticalScrollIndicator={false}
                         data={albums}
                         keyExtractor={(item)=>item.id.toString()}
                         ListEmptyComponent={
@@ -129,35 +131,35 @@ const styles = StyleSheet.create({
         paddingRight:5,
         paddingLeft:5
     },
-    triangle: {
-    position: 'absolute',
-    right: 0,
-    left: 0,
-    width: 0,
-    height: 0,
-    backgroundColor: 'white',
-    borderStyle: 'solid',
-    borderTopWidth: height*0.17,
-    borderLeftWidth: 0,
-    borderRightWidth: height*0.17,
-    borderBottomWidth: 0,
-    borderTopColor: '#ffdbcf',
-    borderLeftColor: 'transparent',
-    borderRightColor: 'transparent',
-    borderBottomColor: 'transparent',
+    triangle:{
+        position: 'absolute',
+        right: 0,
+        left: width*0.715,
+        width: 0,
+        height: 0,
+        backgroundColor: 'white',
+        borderStyle: 'solid',
+        borderTopWidth: height*0.16,
+        borderLeftWidth: height*0.16,
+        borderRightWidth: 0,
+        borderBottomWidth: 0,
+        borderTopColor: '#ffdbcf',
+        borderLeftColor: 'transparent',
+        borderRightColor: 'transparent',
+        borderBottomColor: 'transparent',
     },
     square: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    width: width,
-    height: 0,
-    backgroundColor: '#ffdbcf',
-    borderStyle: 'solid',
-    borderTopWidth: height*0.055,
-    borderBottomWidth: height*0.055,
-    borderTopColor: '#ffdbcf',
-    borderBottomColor: '#ffdbcf',
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: width,
+        height: 0,
+        backgroundColor: '#ffdbcf',
+        borderStyle: 'solid',
+        borderTopWidth: height*0.048,
+        borderBottomWidth: height*0.048,
+        borderTopColor: '#ffdbcf',
+        borderBottomColor: '#ffdbcf',
     },
     g1:{
         borderColor:'#000',
