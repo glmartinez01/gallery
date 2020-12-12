@@ -64,24 +64,18 @@ const imageScreen = ({route,navigation}) => {
 
         <Container>
 
-            
             <View>
                 <View style={styles.triangle}/>
-                
-                <View style={styles.square}/>
                 <View style={styles.triangle2}/>
-                
-                <View style={styles.square2}/>
             </View>
-            <View>
-                <View style={{position:'absolute', left:width*0.06, top:height*0.04}}>
-                    <Ionicons name="ios-arrow-back" size={35} color="#3c1e22" onPress= {()=> navigation.goBack()} /> 
-                </View>
-                
-                <View style={{position:'absolute', right:width*0.06, top:height*0.04}}>
+            <Header style={{backgroundColor:"#ffdbcf"}}>
+                <Left>
+                    <Ionicons name="ios-arrow-back" size={35} style={{margin:4,padding:15}} color="#3c1e22" onPress= {()=> navigation.goBack()} /> 
+                </Left>
+                <Right>
                     <AntDesign name="download" size={24} color="#3c1e22" onPress={savePicture} />
-                </View>
-            </View>
+                </Right>
+            </Header>
             <View style={{flex:1,justifyContent:"center", alignItems:"center"}}>
                 <Image source={{uri:uri}} width={width*0.7} />
             </View>
@@ -107,27 +101,14 @@ const styles = StyleSheet.create({
       height: 0,
       backgroundColor: 'white',
       borderStyle: 'solid',
-      borderTopWidth: height*0.19,
+      borderTopWidth: height*0.15,
       borderLeftWidth: 0,
-      borderRightWidth: height*0.19,
+      borderRightWidth: height*0.15,
       borderBottomWidth: 0,
       borderTopColor: '#ffdbcf',
       borderLeftColor: 'transparent',
       borderRightColor: 'transparent',
       borderBottomColor: 'transparent',
-    },
-    square: {
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      width: width,
-      height: 0,
-      backgroundColor: '#ffdbcf',
-      borderStyle: 'solid',
-      borderTopWidth: height*0.055,
-      borderBottomWidth: height*0.055,
-      borderTopColor: '#ffdbcf',
-      borderBottomColor: '#ffdbcf',
     },
     triangle2:{
         position: 'absolute',
@@ -144,57 +125,6 @@ const styles = StyleSheet.create({
         borderTopColor: 'transparent',
         borderLeftColor: 'transparent',
         borderRightColor: '#ffdbcf',
-        borderBottomColor: 'transparent',
-    },
-    square2: {
-        position: 'absolute',
-        top: height*0.95,
-        left: 0,
-        width: 0,
-        height: 0,
-        backgroundColor: '#ffdbcf',
-        borderStyle: 'solid',
-        borderTopWidth: height*0.055,
-        borderLeftWidth: width,
-        borderRightWidth:width,
-        borderBottomWidth: height*0.055,
-        borderTopColor: '#ffdbcf',
-        borderLeftColor: '#ffdbcf',
-        borderRightColor: '#ffdbcf',
-        borderBottomColor: '#ffdbcf',
-    },
-    triangle3:{
-        position: 'absolute',
-        right: 0,
-        left: width*0.67,
-        width: 0,
-        height: 0,
-        backgroundColor: 'white',
-        borderStyle: 'solid',
-        borderTopWidth: height*0.19,
-        borderLeftWidth: height*0.19,
-        borderRightWidth: 0,
-        borderBottomWidth: 0,
-        borderTopColor: '#ffdbcf',
-        borderLeftColor: 'transparent',
-        borderRightColor: 'transparent',
-        borderBottomColor: 'transparent',
-    },
-    triangle4:{
-        position: 'absolute',
-        top: height*0.82,
-        left: 0,
-        width: 0,
-        height: 0,
-        backgroundColor: 'white',
-        borderStyle: 'solid',
-        borderTopWidth: height*0.19,
-        borderLeftWidth: height*0.19,
-        borderRightWidth: 0,
-        borderBottomWidth: 0,
-        borderTopColor: 'transparent',
-        borderLeftColor: '#ffdbcf',
-        borderRightColor: 'transparent',
         borderBottomColor: 'transparent',
     },
   
