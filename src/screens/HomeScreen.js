@@ -58,7 +58,7 @@ const HomeScreen = ({navigation}) => {
                 let message = 'data:image/png;base64, ' + result.base64;
                 //setImage(result.uri)
                 const resultado = result.uri;
-                addNewImage(resultado,1,refreshImages);
+                addNewImage(resultado,album,refreshImages);
                 {console.log(images)}
                 {console.log(albums)}
                 refreshImages();

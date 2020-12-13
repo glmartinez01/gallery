@@ -179,6 +179,7 @@ const insertAlbums = (album, successFunc) => {
     },
     (_t, error) => {
       console.log("Error al insertar el album");
+      console.log(album);
       console.log(error);
     },
     (_t, _success) => {

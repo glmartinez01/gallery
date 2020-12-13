@@ -1,4 +1,4 @@
-import { Container, View,Header,Body,Card, Input } from "native-base";
+import { Container, View,Header,Body,Card, Input, Item } from "native-base";
 import React,{useContext,useEffect,useState} from "react";
 import {StyleSheet,Text,Dimensions,StatusBar, Modal,Keyboard} from "react-native";
 import { AntDesign,Ionicons } from '@expo/vector-icons';
@@ -13,8 +13,7 @@ const CarreteScreen = ({navigation}) => {
     const [album,setAlbum] = useState(null);
     const [open,setOpen] = useState(false);
     const [albumError,setAlbumError] = useState(false);
-
-
+    
     //context
     const { albums } = useContext(AlbumsContext);
 
@@ -32,7 +31,8 @@ const CarreteScreen = ({navigation}) => {
             addNewAlbum(album,refreshAlbums);
             refreshAlbums();
             setAlbum("");
-            setSearchError(false);
+            setAlbumError(false);
+            setOpen(false);
         }
     }
     
@@ -90,12 +90,16 @@ const CarreteScreen = ({navigation}) => {
                         }
                     />
                 </View>
-                <Modal animationType="slide" transparent={false} visible={open}>
-                    <Ionicons name="ios-arrow-back" size={35} color="black" style={{position:'absolute', zIndex:2,margin:5,padding:15}} onPress={()=>setOpen(false)} />
-                    <AntDesign name="upload" size={30} style={{position:'absolute', zIndex:2,marginLeft:'85%',margin:5,padding:10}} onPress={()=>{addNewAlbum(album,refreshAlbums); refreshAlbums(); setOpen(false)}} color="black" />
-                    <View style={{flex:1, justifyContent:"center",alignItems:"center", zIndex:1}}>
-                        <View style={{height:50, zIndex:1}}>
-                            <Input placeholder="Album Name" value={album} onChangeText={setAlbum} style={{color:'#000',backgroundColor:"#aaa"}} placeholderTextColor={albumError?'#ff0000':'#000'}/>
+                <Modal animationType="slide" transparent={true} visible={open}>
+                    <StatusBar backgroundColor="#000000aa" />
+                    <View style={{backgroundColor:"#000000aa", flex:1, justifyContent:"center", alignItems:"center"}}>
+                        <View style={{backgroundColor:"#fff", height:180, width:'90%', borderRadius:10}}>
+                            <Ionicons name="ios-arrow-back" size={35} color="black" style={{position:'absolute', zIndex:2,margin:5,padding:15}} onPress={()=>setOpen(false)} />
+                            <Ionicons name="ios-add" size={35} style={{position:'absolute', zIndex:2,marginLeft:'84%', margin:5,padding:15}} onPress={handlerInput} color="black" />
+                            <Text style={{alignSelf:"center", fontSize:20, marginTop:20}}>Add Album</Text>
+                            <Item style={{backgroundColor:'#fff',marginLeft:10,marginRight:10,flex:1,justifyContent:"center",alignItems:"center"}}>
+                                <Input placeholder="Name" value={album} onChangeText={setAlbum} placeholderTextColor={'rgba(0,0,0,0.5)'} style={{color:'#000', borderBottomWidth:3}}/>
+                            </Item>
                         </View>
                     </View>
                 </Modal>

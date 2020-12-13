@@ -70,7 +70,7 @@ const imageScreen = ({route,navigation}) => {
                 <View style={styles.triangle}/>
                 <View style={styles.triangle2}/>
             </View>
-            <Header style={{backgroundColor:"#ffdbcf"}}>
+            <Header noShadow style={{backgroundColor:"#ffdbcf"}}>
                 <StatusBar backgroundColor="#ffdbcf" />
                 <Left>
                     <Ionicons name="ios-arrow-back" size={35} style={{margin:4,padding:15}} color="#3c1e22" onPress= {()=> navigation.goBack()} /> 
@@ -82,7 +82,7 @@ const imageScreen = ({route,navigation}) => {
             <View style={{flex:1,justifyContent:"center", alignItems:"center"}}>
                 <Image source={{uri:uri}} width={width*0.7} />
             </View>
-            <Footer style={{backgroundColor:"#ffdbcf"}}>
+            <Footer noShadow style={{backgroundColor:"#ffdbcf"}}>
                 <MaterialCommunityIcons name="trash-can-outline" size={50} color="#3c1e22" style={{position:"absolute", bottom:height*0.01, alignSelf:"center"}} onPress={twoButtonAlert} />
             </Footer>
             

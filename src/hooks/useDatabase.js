@@ -9,6 +9,7 @@ const useDatabase = () => {
       //await database.dropDatabaseAlbumsTableAsync();
       await database.setupDatabaseAlbumsTableAsync();
       //await database.setupAlbumsAsync();
+      //await database.dropDatabaseTableAsync();
       await database.setupDatabaseTableAsync();
       //await database.setupImagesAsync();
 
