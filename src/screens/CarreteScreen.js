@@ -76,7 +76,7 @@ const CarreteScreen = ({navigation}) => {
                         renderItem={({item}) => {
                                 return(
                                     <View style={{flex:1, alignItems:"center"}}>
-                                        <TouchableOpacity onPress={()=>{navigation.navigate("imagesbyAlbumScreen",{id:item.id})}} >
+                                        <TouchableOpacity onPress={()=>{navigation.navigate("imagesbyAlbumScreen",{id:item.id,name:item.album})}} >
                                             <Card style={styles.gallery}>
                                                 
                                                 <Text style={styles.texto}>
@@ -90,7 +90,7 @@ const CarreteScreen = ({navigation}) => {
                         }
                     />
                 </View>
-                <Modal animationType="slide" transparent={true} visible={open}>
+                <Modal animationType="fade" transparent={true} visible={open}>
                     <StatusBar backgroundColor="#000000aa" />
                     <View style={{backgroundColor:"#000000aa", flex:1, justifyContent:"center", alignItems:"center"}}>
                         <View style={{backgroundColor:"#fff", height:180, width:'90%', borderRadius:10}}>
