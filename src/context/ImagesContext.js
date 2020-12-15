@@ -39,6 +39,10 @@ export const ImagesContextProvider = (props) => {
     return database.insertImages(image,album,refreshImages);
   };
 
+  const modifyImage = (album,image) => {
+    return database.updateImages(album,image,refreshImages);
+  };
+
   const deleteImage = (image) => {
     return database.deleteImages(image, refreshImages);
   };
@@ -49,6 +53,7 @@ export const ImagesContextProvider = (props) => {
     image,
     getImageByAlbumId,
     addNewImage,
+    modifyImage,
     deleteImage,
     refreshImages,
   };

@@ -66,6 +66,25 @@ const insertImages = (image,album, successFunc) => {
   );
 };
 
+//Actualizar album de imagenes
+const updateImages = (album,image, successFunc) => {
+  db.transaction(
+    (tx) => {
+      tx.executeSql("update images set album = ? where id = ?", [
+        album,
+        image,
+      ]);
+    },
+    (_t, error) => {
+      console.log("Error al insertar la imagen");
+      console.log(error);
+    },
+    (_t, _success) => {
+      successFunc;
+    }
+  );
+};
+
 const deleteImages = (idimage, successFunc) => {
   db.transaction(
     (tx) => {
@@ -275,6 +294,7 @@ export const database = {
   getImages,
   getAlbums,
   insertImages,
+  updateImages,
   insertAlbums,
   deleteImages,
   deleteAlbums,
