@@ -1,10 +1,10 @@
 import { Container, View,Header,Body,Card, Input, Item } from "native-base";
-import React,{useContext,useEffect,useState} from "react";
-import {StyleSheet,Text,Dimensions,StatusBar, Modal,Keyboard} from "react-native";
-import { AntDesign,Ionicons } from '@expo/vector-icons';
+import React,{useContext,useEffect,useState,useCallback} from "react";
+import {StyleSheet,Text,Dimensions,StatusBar, Modal,Keyboard,TouchableOpacity} from "react-native";
+import { AntDesign,Ionicons,FontAwesome,MaterialIcons,MaterialCommunityIcons } from '@expo/vector-icons';
 
 import {AlbumsContext} from "../context/AlbumsContext";
-import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
+import { FlatList } from "react-native-gesture-handler";
 
 const {width, height} = Dimensions.get("window")
 
@@ -12,7 +12,21 @@ const CarreteScreen = ({navigation}) => {
 
     const [album,setAlbum] = useState(null);
     const [open,setOpen] = useState(false);
+    const [abri,setAbrir] = useState(false);
     const [albumError,setAlbumError] = useState(false);
+    const [selected,setSelected] = useState([]);
+    const [refreshing, setRefreshing] = useState(false);
+
+    const wait = (timeout) => {
+        return new Promise(resolve => {
+        setTimeout(resolve, timeout);
+        });
+    }
+
+    const onRefresh = useCallback(() => {
+        setRefreshing(true);
+        wait(5).then(() => setRefreshing(false));
+    }, []);
     
     //context
     const { albums } = useContext(AlbumsContext);
@@ -38,9 +52,33 @@ const CarreteScreen = ({navigation}) => {
     
     useEffect(() => {
         if (album) setAlbumError(false)
+        onRefresh();
     }, [album]);
 
+    useEffect(() => {
+        onRefresh();
+      }, []);
+
     
+
+    const handlerCheck = (item) =>{
+    
+        if(selected.includes(item.id)){
+          for( var i = 0; i < selected.length; i++){ 
+    
+            if ( selected[i] === item.id) { 
+    
+                selected.splice(i, 1); 
+            }
+          }
+        }else{
+            selected.push(item.id);
+          }
+          onRefresh();
+          console.log(selected);
+        }
+
+
     return(
         
         <Container>
@@ -56,7 +94,10 @@ const CarreteScreen = ({navigation}) => {
                 </View>
                 <View style={{position:'absolute', left:width*0.25, top:height*0.027}}>
                     <Text style={{fontSize:20,color:'#3c1e22'}}>Albums</Text>
-                </View>  
+                </View>
+                <View style={{position:'absolute', right:width*0.06, top:height*0.027}}>
+                    <FontAwesome name="trash-o" size={28} color="black" onPress={()=>{setAbrir(true)}}/> 
+                </View>
             </View>
             <View style={{marginTop:100}}>
             <FlatList
@@ -100,6 +141,50 @@ const CarreteScreen = ({navigation}) => {
                             <Item style={{backgroundColor:'#fff',marginLeft:10,marginRight:10,flex:1,justifyContent:"center",alignItems:"center"}}>
                                 <Input placeholder="Name" value={album} onChangeText={setAlbum} placeholderTextColor={'rgba(0,0,0,0.5)'} style={{color:'#000', borderBottomWidth:3}}/>
                             </Item>
+                        </View>
+                    </View>
+                </Modal>
+                <Modal animationType="fade" transparent={true} visible={abri}>
+                    <StatusBar backgroundColor="#000000aa" />
+                    <View style={{backgroundColor:"#000000aa", flex:1, justifyContent:"center", alignItems:"center"}}>
+                        <View style={{backgroundColor:"#fff", width:'90%', borderRadius:10}}>
+                            <Ionicons name="ios-arrow-back" size={35} color="black" style={{position:'absolute', zIndex:2,margin:5,padding:15}} onPress={()=>{setSelected([]),setAbrir(false)}} />
+                            <FontAwesome name="trash-o" size={35}  style={{position:'absolute', zIndex:2,right:'5%',top:'5%'}} color="black" /> 
+                            <Text style={{alignSelf:"center", fontSize:20, marginTop:20}}>Del Album</Text>
+                            <FlatList
+                                style={{margin:40}}
+                                showsVerticalScrollIndicator={false}
+                                data={albums}
+                                keyExtractor={(item)=>item.id.toString()}
+                                ListEmptyComponent={
+                                    <View style={{justifyContent: "center", alignItems: "center", height: height}}>
+                                        <Text style={{justifyContent: "center", alignItems: "center", fontSize: 20,}}>
+                                        No tienes albumnes
+                                        </Text>
+                                    </View>
+                                }
+
+                                renderItem={({item}) => {
+                                        return(
+                                            <View style={{flex:1,alignItems:'flex-start'}}>
+                                                {!(item.id===1 || item.id===2) ?
+                                                    <TouchableOpacity onPress={() => handlerCheck(item)} >
+                                                        <View style={{position:'absolute',marginTop:10}}>
+                                                            {!selected.includes(item.id) ?
+                                                                <MaterialIcons name="check-box-outline-blank" size={24} color="#ff0000" />
+                                                            :   <MaterialCommunityIcons name="checkbox-marked" size={24} color="#00ff00" />
+                                                            }
+                                                        </View>
+                                                            <Text style={{color:'#000',fontSize:20, marginLeft:30,marginTop:10}}>{item.album}</Text>
+                                                        
+                                                    </TouchableOpacity>
+                                                :   null
+                                                }
+                                            </View>
+                                        )
+                                    }
+                                }
+                            />
                         </View>
                     </View>
                 </Modal>
@@ -164,70 +249,6 @@ const styles = StyleSheet.create({
         borderBottomWidth: height*0.048,
         borderTopColor: '#ffdbcf',
         borderBottomColor: '#ffdbcf',
-    },
-    g1:{
-        borderColor:'#000',
-        backgroundColor:'#fff',
-        borderWidth:3, 
-        borderBottomLeftRadius: 10,
-        borderBottomRightRadius: 0,
-        borderTopLeftRadius: 10,
-        borderTopRightRadius: 10 ,
-        height:height*0.27, 
-        width:width*0.45,
-        marginLeft:10,
-        marginRight:10,
-        marginTop:10,
-        marginBottom:10,
-        alignItems:'center',
-    },
-    g2:{
-        borderColor:'#000',
-        backgroundColor:'#fff',
-        borderWidth:3, 
-        borderBottomLeftRadius: 0,
-        borderBottomRightRadius: 10,
-        borderTopLeftRadius: 10,
-        borderTopRightRadius: 10 ,
-        height:height*0.27, 
-        width:width*0.45,
-        marginLeft:10,
-        marginRight:10,
-        marginTop:10,
-        marginBottom:10,
-        alignItems:'center',
-    },
-    g3:{
-        borderColor:'#000',
-        backgroundColor:'#fff',
-        borderWidth:3, 
-        borderBottomLeftRadius: 10,
-        borderBottomRightRadius: 10,
-        borderTopLeftRadius: 10,
-        borderTopRightRadius: 0 ,
-        height:height*0.27, 
-        width:width*0.45,
-        marginLeft:10,
-        marginRight:10,
-        marginTop:10,
-        marginBottom:10,
-        alignItems:'center',
-    },
-    g4:{
-        borderColor:'#000',
-        backgroundColor:'#fff',
-        borderWidth:3, 
-        borderBottomLeftRadius: 10,
-        borderBottomRightRadius: 10,
-        borderTopLeftRadius: 0,
-        borderTopRightRadius: 10 ,
-        height:height*0.27, 
-        width:width*0.45,
-        marginLeft:10,
-        marginRight:10,
-        marginTop:10,
-        marginBottom:10,
-        alignItems:'center',
     },
 });
 

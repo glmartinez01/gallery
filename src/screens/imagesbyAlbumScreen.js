@@ -1,14 +1,14 @@
 import React, { useContext, useEffect, useState,useCallback } from "react";
 import { ScrollView } from "react-native-gesture-handler";
-import { StyleSheet,Dimensions,FlatList,StatusBar,Image,Modal,TouchableOpacity } from "react-native";
-import { Ionicons,AntDesign } from '@expo/vector-icons';
+import { StyleSheet,Dimensions,FlatList,StatusBar,Image,Modal,TouchableOpacity,Alert } from "react-native";
+import { Ionicons,AntDesign,MaterialIcons,MaterialCommunityIcons } from '@expo/vector-icons';
 import { Container,Content,Text,Textarea,Spinner,Button,View,Card } from "native-base";
-import CheckBox from '@react-native-community/checkbox'
 import Images from 'react-native-scalable-image';
 import * as Font from "expo-font";
 
 // Importar el contexto de las notas
 import { ImagesContext } from "../context/ImagesContext";
+import { AlbumsContext } from "../context/AlbumsContext";
 
 const {width, height} = Dimensions.get("window");
 
@@ -18,10 +18,10 @@ const ImagesByAlbumScreen = ({ route, navigation }) => {
   const [open,setOpen] = useState(false);
   const imagesContext = useContext(ImagesContext);
   const { image, getImageByAlbumId,modifyImage,refreshImages } = imagesContext;
-  const [toggleCheckBox, setToggleCheckBox] = useState(false);
-  const [data, setData] = useState(null);
+  const albumsContext = useContext(AlbumsContext);
+  const {deleteAlbum, refreshAlbums} = albumsContext;
   const [selected,setSelected] = useState([]);
-
+  
   const [refreshing, setRefreshing] = useState(false);
 
   const wait = (timeout) => {
@@ -37,6 +37,22 @@ const ImagesByAlbumScreen = ({ route, navigation }) => {
   }, []);
 
 
+  const twoButtonAlert = () =>
+  Alert.alert(
+    "¿Desea borrar este album?",
+    "Las imagenes no se eliminaran.",
+    [
+      {
+        text: "Cancel",
+        onPress: () => console.log("Cancel Pressed"),
+        style: "cancel"
+      },
+      { text: "OK", onPress: albumDel }
+    ],
+    { cancelable: true }
+  );
+
+
   //Arreglo de imagenes original
   const { images } = useContext(ImagesContext);
 
@@ -44,14 +60,26 @@ const ImagesByAlbumScreen = ({ route, navigation }) => {
     const getImages = () => {
       getImageByAlbumId(id);
     };
-
     getImages();
-
     if(image.length){
         setTheImages(image);
+    }else{
+      setTheImages(null);
     }
+  }, [id,image]);
 
-  }, []);
+  //Eliminar el album 
+  const albumDel =()=>{
+    if(theImages){
+      theImages.forEach(element => {
+        modifyImage(null,element.id, refreshImages);
+      });
+    }
+    deleteAlbum(id,refreshAlbums);
+    refreshAlbums();
+    refreshImages();
+    navigation.goBack();
+  }
 
   useEffect(() => {
     onRefresh();
@@ -98,7 +126,7 @@ const ImagesByAlbumScreen = ({ route, navigation }) => {
             <Text style={{fontSize:20,color:'#3c1e22'}}>{name}</Text>
           </View>
           
-          {id!==1 ? <View style={{position:'absolute', right:width*0.06, top:height*0.027}}>
+          {(id!==1 && id!==2) ? <View style={{position:'absolute', right:width*0.06, top:height*0.027}}>
                   <Ionicons name="ios-add" size={35} style={{position:'absolute',right:5}} color="black" onPress={() => setOpen(true)}/>
                 </View>:null}
           
@@ -107,7 +135,7 @@ const ImagesByAlbumScreen = ({ route, navigation }) => {
             <FlatList showsVerticalScrollIndicator={false}
             horizontal={false}
             numColumns={3}
-            style={{borderRadius:1,marginTop:67}}
+            style={{marginTop:67}}
             data={images}
             keyExtractor={(item)=>item.id.toString()}
             ListEmptyComponent={<Text>No images found!</Text>}
@@ -131,7 +159,7 @@ const ImagesByAlbumScreen = ({ route, navigation }) => {
             <FlatList showsVerticalScrollIndicator={false}
             horizontal={false}
             numColumns={3}
-            style={{borderRadius:1,marginTop:67}}
+            style={{marginTop:67}}
             data={theImages}
             keyExtractor={(item)=>item.id.toString()}
             ListEmptyComponent={<View style={{flex:1, alignItems:"center",justifyContent:"center"}}>
@@ -158,7 +186,7 @@ const ImagesByAlbumScreen = ({ route, navigation }) => {
 
             <Modal animationType="fade" transparent={true} visible={open}>
                 <StatusBar backgroundColor="#000000aa" />
-                <Ionicons name="ios-arrow-back" size={35} color="black" style={{position:'absolute', zIndex:2,margin:5,padding:15}} onPress={()=>setOpen(false)} />
+                <Ionicons name="ios-arrow-back" size={35} color="black" style={{position:'absolute', zIndex:2,margin:5,padding:15}} onPress={()=>{setSelected([]),setOpen(false)}} />
                 
                 <AntDesign name="upload" size={30} style={{position:'absolute', zIndex:2,marginLeft:'85%',margin:5,padding:10}} onPress={()=>{handlerSaveImage(selected); setOpen(false)}} color="black" />
                 
@@ -168,7 +196,7 @@ const ImagesByAlbumScreen = ({ route, navigation }) => {
                     showsVerticalScrollIndicator={false}
                     horizontal={false}
                     numColumns={3}
-                    style={{borderRadius:1,marginTop:67}}
+                    style={{marginTop:67}}
                     data={images}
                     keyExtractor={(item)=>item.id.toString()}
                     ListEmptyComponent={<Text>No images found!</Text>}
@@ -179,15 +207,19 @@ const ImagesByAlbumScreen = ({ route, navigation }) => {
                         onPress={() => handlerCheck(item)}>
                         <View style={{flex:1, alignItems:"center",marginTop:0}}>
                           <Image  source={{uri : item.image}}
-                                  style={{width:width/3,height:height/6}}
+                                  style={{width:width/3.5,height:height/6, borderRadius:5}}
                           />
                         </View>
                         {console.log(selected)}
-                        {!selected.includes(item.id) ? (
-                          <Text style={{ color: 'red' }}>{'Not Selected'}</Text>
-                        ) : (
-                          <Text style={{ color: 'green' }}>{'Selected'}</Text>
-                        )}
+                        {!selected.includes(item.id) ? 
+                          <View style={{position:'absolute',right:'5%',top:'5%'}}>
+                            <MaterialIcons name="check-box-outline-blank" size={24} color="#ff0000" />
+                          </View>
+                        : 
+                          <View style={{position:'absolute',right:'5%',top:'5%'}}>
+                            <MaterialCommunityIcons name="checkbox-marked" size={24} color="#00ff00" />
+                          </View>
+                        }
                       </TouchableOpacity>
                     )}
                     keyExtractor={(item) => item.index}
@@ -250,17 +282,14 @@ const styles = StyleSheet.create({
     borderTopColor: '#ffdbcf',
     borderBottomColor: '#ffdbcf',
   },
-  selected:{
-    color:'#fff',
-    backgroundColor:'rgba(18,21,33,0.8)',
-    color:'#fff',
-    zIndex:-1,
-    position:'absolute',
-    top:'70%',
-    paddingTop:5,
-    paddingBottom:5,
-    paddingRight:5,
-    paddingLeft:5
+  flatListItem: {
+    width: 100,
+    height: 100,
+    backgroundColor: 'white',
+    margin: 5,
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 
