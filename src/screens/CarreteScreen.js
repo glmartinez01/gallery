@@ -150,7 +150,7 @@ const CarreteScreen = ({navigation}) => {
                         <View style={{backgroundColor:"#fff", width:'90%', borderRadius:10}}>
                             <Ionicons name="ios-arrow-back" size={35} color="black" style={{position:'absolute', zIndex:2,margin:5,padding:15}} onPress={()=>{setSelected([]),setAbrir(false)}} />
                             <FontAwesome name="trash-o" size={35}  style={{position:'absolute', zIndex:2,right:'5%',top:'5%'}} color="black" /> 
-                            <Text style={{alignSelf:"center", fontSize:20, marginTop:20}}>Del Album</Text>
+                            <Text style={{alignSelf:"center", fontSize:20, marginTop:20}}>Eliminar Album</Text>
                             <FlatList
                                 style={{margin:40}}
                                 showsVerticalScrollIndicator={false}

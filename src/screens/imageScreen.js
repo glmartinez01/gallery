@@ -1,8 +1,8 @@
 import { Button, Container, Content, Footer, Left, Right, View,Toast } from "native-base";
 import React, {useState,useContext,useEffect} from "react";
 import {Header} from "native-base";
-import {StyleSheet, Dimensions,Text,Platform,ToastAndroid,Alert,StatusBar} from "react-native";
-import { AntDesign,Ionicons,MaterialCommunityIcons } from '@expo/vector-icons';
+import {StyleSheet, Dimensions,Text,Platform,ToastAndroid,Alert,StatusBar, Modal} from "react-native";
+import { AntDesign,Ionicons,MaterialCommunityIcons,FontAwesome } from '@expo/vector-icons';
 import * as MediaLibrary from 'expo-media-library';
 
 import Image from 'react-native-scalable-image';
@@ -16,6 +16,7 @@ const imageScreen = ({route,navigation}) => {
     const {id,uri} = route.params;
     const imagesContext = useContext(ImagesContext);
     const {addNewImage, refreshImages,deleteImage} = imagesContext;
+    const [open,setOpen] = useState(false);
 
     const poptoast = () => {
         if (Platform.OS != 'android') {
@@ -80,12 +81,18 @@ const imageScreen = ({route,navigation}) => {
                 </Right>
             </Header>
             <View style={{flex:1,justifyContent:"center", alignItems:"center"}}>
-                <Image source={{uri:uri}} width={width*0.7} />
+                <Image source={{uri:uri}} width={width*0.7} onPress={()=>{setOpen(true)}}/>
             </View>
             <Footer noShadow style={{backgroundColor:"#ffdbcf"}}>
-                <MaterialCommunityIcons name="trash-can-outline" size={50} color="#3c1e22" style={{position:"absolute", bottom:height*0.01, alignSelf:"center"}} onPress={twoButtonAlert} />
+                <FontAwesome name="trash-o" size={40} color="#3c1e22" style={{position:"absolute", bottom:height*0.01, alignSelf:"center"}} onPress={twoButtonAlert} />
             </Footer>
-            
+            <Modal animationType="fade" transparent={true} visible={open}>
+                <StatusBar backgroundColor="#000000aa" />
+                <View style={{backgroundColor:"#000000aa", flex:1, justifyContent:"center", alignItems:"center"}}>
+                    <Image source={{uri:uri}} width={width*0.85} />
+                    <Ionicons name="ios-close" size={70} color="white" style={{position:'absolute', right:15,top:0}} onPress={()=>setOpen(false)} />
+                </View>
+            </Modal>
         </Container>
 
     )

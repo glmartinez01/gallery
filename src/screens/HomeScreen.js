@@ -90,15 +90,15 @@ const HomeScreen = ({navigation}) => {
           </View>
         </View>
 
-        <View style={{alignItems:"center", justifyContent:"center", flex:1, marginTop:height*0.15}}>
-            <ScrollView showsVerticalScrollIndicator={false}>
+        <View style={{alignItems:"center", justifyContent:"center", flex:1, marginTop:height*0.15,}}>
+            <ScrollView showsVerticalScrollIndicator={false} style={{marginBottom:20}}>
               {console.log(images)}
               {images
                 ? images.map((each) => (
                   <TouchableOpacity key={each.id.toString()} onPress={()=>{navigation.navigate("imageScreen",{id:each.id,uri:each.image})}}>
                     <Card  style={{width:width*0.85, borderRadius:10, borderWidth:3, alignItems:'center'}}>
                        {console.log(each.image)}
-                      <Image source={{uri : each.image}} width={width*0.85} style={{borderRadius:10}}/>
+                      <Image source={{uri : each.image}} width={width*0.85}/>
                     </Card>
                     </TouchableOpacity>
                   ))

@@ -1,9 +1,9 @@
 import React from "react";
+import { Image } from "react-native";
 import {NavigationContainer} from "@react-navigation/native";
 import {createStackNavigator} from "@react-navigation/stack";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {Text, View} from "native-base";
-
 
 
 import { AntDesign } from '@expo/vector-icons';
@@ -19,32 +19,24 @@ import useDatabase from "./src/hooks/useDatabase";
 import {ImagesContextProvider} from "./src/context/ImagesContext";
 import {AlbumsContextProvider} from "./src/context/AlbumsContext";
 
+import TabBar from './src/obj/TabBar.js';
+
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
 
-function MyTabs(){
 
-  return(
-    <Tab.Navigator>
-          <Tab.Screen name="Home" component={HomeScreen} options={{
-
-            tabBarIcon:({color,size}) =>(
-              <AntDesign name="home" size={size} color={color} />
-            )
-            
-          }} />
-          <Tab.Screen name="Albums" component={CarreteScreen} options={{
-
-            tabBarIcon:({color,size}) =>(
-              <Entypo name="images" size={size} color={color} />
-            )
-          }} />
+function TabNavigator (){
+  return (
+    <Tab.Navigator tabBar={props => <TabBar {...props} />}>
+      <Tab.Screen name='Home' component={HomeScreen} initialParams={{ icon: 'home' }}
+      />
+      <Tab.Screen name='Albums' component={CarreteScreen} initialParams={{ icon2: 'images' }}
+      />
     </Tab.Navigator>
-    
-  )
+  );
+};
 
-}
 
 
 export default function App(){
@@ -52,7 +44,7 @@ export default function App(){
   if(!isloadingComplete){
     return(
       <View style={{flex:1, alignItems:"center",justifyContent:"center"}}>
-      <Text>No se ha cargado la base de datos</Text>
+        <Image source = {require('./assets/loader.gif')}/>
       </View>
     );
   }
@@ -62,7 +54,7 @@ export default function App(){
         <ImagesContextProvider>
           <NavigationContainer>
             <Stack.Navigator screenOptions={{headerShown:false}}>
-              <Stack.Screen name = "tabs" component={MyTabs}/>
+              <Stack.Screen name = "tabs" component={TabNavigator}/>
               <Stack.Screen name = "camera" component={CaptureCamera}/>
               <Stack.Screen name = "imageScreen" component={imageScreen}/>
               <Stack.Screen name = "imagesbyAlbumScreen" component={ImagesByAlbumScreen}/>
