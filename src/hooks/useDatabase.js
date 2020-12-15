@@ -16,6 +16,8 @@ const useDatabase = () => {
         await database.setupAlbumsAsync();
         await database.setupAlbumsAsync2();
         await database.setupDatabaseTableAsync();
+
+        await AsyncStorage.setItem("setup","yes");
       } 
       
       // Finaliza la carga de la DB
