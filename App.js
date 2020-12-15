@@ -26,7 +26,7 @@ const Stack = createStackNavigator();
 
 
 
-function TabNavigator (){
+function MyTabs (){
   return (
     <Tab.Navigator tabBar={props => <TabBar {...props} />}>
       <Tab.Screen name='Home' component={HomeScreen} initialParams={{ icon: 'home' }}
@@ -54,7 +54,7 @@ export default function App(){
         <ImagesContextProvider>
           <NavigationContainer>
             <Stack.Navigator screenOptions={{headerShown:false}}>
-              <Stack.Screen name = "tabs" component={TabNavigator}/>
+              <Stack.Screen name = "tabs" component={MyTabs}/>
               <Stack.Screen name = "camera" component={CaptureCamera}/>
               <Stack.Screen name = "imageScreen" component={imageScreen}/>
               <Stack.Screen name = "imagesbyAlbumScreen" component={ImagesByAlbumScreen}/>

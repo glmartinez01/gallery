@@ -73,20 +73,20 @@ const HomeScreen = ({navigation}) => {
     return(
         
       <Container>
-        <StatusBar backgroundColor="#ffdbcf" />
+        <StatusBar backgroundColor="#008577" />
         <View>
           <View style={styles.triangle}/>
           <View style={styles.square}/>
         </View>
         <View>
           <View style={{position:'absolute', left:width*0.06, top:height*0.027}}>
-            <Entypo name="add-to-list" size={24} color="#3c1e22" onPress={pickImage} /> 
+            <Entypo name="add-to-list" size={24} color="black" onPress={pickImage} /> 
           </View>
           <View style={{position:'absolute', left:width*0.25, top:height*0.027}}>
-            <Text style={{fontSize:20,color:'#3c1e22'}}>Home</Text>
+            <Text style={{fontSize:20,color:'black'}}>Home</Text>
           </View>  
           <View style={{position:'absolute', right:width*0.06, top:height*0.027}}>
-            <MaterialCommunityIcons onPress={()=> navigation.navigate("camera")} name="camera-outline" size={30} color={'#3c1e22'} />
+            <MaterialCommunityIcons onPress={()=> navigation.navigate("camera")} name="camera-outline" size={30} color={'black'} />
           </View>
         </View>
 
@@ -98,7 +98,7 @@ const HomeScreen = ({navigation}) => {
                   <TouchableOpacity key={each.id.toString()} onPress={()=>{navigation.navigate("imageScreen",{id:each.id,uri:each.image})}}>
                     <Card  style={{width:width*0.85, borderRadius:10, borderWidth:3, alignItems:'center'}}>
                        {console.log(each.image)}
-                      <Image source={{uri : each.image}} width={width*0.85}/>
+                      <Image style={{borderRadius:10}} source={{uri : each.image}} width={width*0.85}/>
                     </Card>
                     </TouchableOpacity>
                   ))
@@ -112,7 +112,7 @@ const HomeScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ffdbcf',
+    backgroundColor: '#008577',
   },
   triangle: {
     position: 'absolute',
@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
     borderLeftWidth: 0,
     borderRightWidth: height*0.16,
     borderBottomWidth: 0,
-    borderTopColor: '#ffdbcf',
+    borderTopColor: '#008577',
     borderLeftColor: 'transparent',
     borderRightColor: 'transparent',
     borderBottomColor: 'transparent',
@@ -137,12 +137,12 @@ const styles = StyleSheet.create({
     left: 0,
     width: width,
     height: 0,
-    backgroundColor: '#ffdbcf',
+    backgroundColor: '#008577',
     borderStyle: 'solid',
     borderTopWidth: height*0.048,
     borderBottomWidth: height*0.048,
-    borderTopColor: '#ffdbcf',
-    borderBottomColor: '#ffdbcf',
+    borderTopColor: '#008577',
+    borderBottomColor: '#008577',
   },
 
 });

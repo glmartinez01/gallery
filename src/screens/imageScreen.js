@@ -71,20 +71,20 @@ const imageScreen = ({route,navigation}) => {
                 <View style={styles.triangle}/>
                 <View style={styles.triangle2}/>
             </View>
-            <Header noShadow style={{backgroundColor:"#ffdbcf"}}>
-                <StatusBar backgroundColor="#ffdbcf" />
+            <Header noShadow style={{backgroundColor:"#008577"}}>
+                <StatusBar backgroundColor="#008577" />
                 <Left>
-                    <Ionicons name="ios-arrow-back" size={35} style={{margin:4,padding:15}} color="#3c1e22" onPress= {()=> navigation.goBack()} /> 
+                    <Ionicons name="ios-arrow-back" size={35} style={{margin:4,padding:15}} color="black" onPress= {()=> navigation.goBack()} /> 
                 </Left>
                 <Right>
-                    <AntDesign name="download" size={24} color="#3c1e22" onPress={savePicture} />
+                    <AntDesign name="download" size={24} color="black" onPress={savePicture} />
                 </Right>
             </Header>
             <View style={{flex:1,justifyContent:"center", alignItems:"center"}}>
                 <Image source={{uri:uri}} width={width*0.7} onPress={()=>{setOpen(true)}}/>
             </View>
-            <Footer noShadow style={{backgroundColor:"#ffdbcf"}}>
-                <FontAwesome name="trash-o" size={40} color="#3c1e22" style={{position:"absolute", bottom:height*0.01, alignSelf:"center"}} onPress={twoButtonAlert} />
+            <Footer noShadow style={{backgroundColor:"#008577"}}>
+                <FontAwesome name="trash-o" size={40} color="black" style={{position:"absolute", bottom:height*0.01, alignSelf:"center"}} onPress={twoButtonAlert} />
             </Footer>
             <Modal animationType="fade" transparent={true} visible={open}>
                 <StatusBar backgroundColor="#000000aa" />
@@ -101,7 +101,7 @@ const imageScreen = ({route,navigation}) => {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#ffdbcf',
+      backgroundColor: '#008577',
     },
     triangle: {
       position: 'absolute',
@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
       borderLeftWidth: 0,
       borderRightWidth: height*0.15,
       borderBottomWidth: 0,
-      borderTopColor: '#ffdbcf',
+      borderTopColor: '#008577',
       borderLeftColor: 'transparent',
       borderRightColor: 'transparent',
       borderBottomColor: 'transparent',
@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 0,
         borderTopColor: 'transparent',
         borderLeftColor: 'transparent',
-        borderRightColor: '#ffdbcf',
+        borderRightColor: '#008577',
         borderBottomColor: 'transparent',
     },
   

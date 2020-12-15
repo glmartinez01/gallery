@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 import Tab from './Tab';
 
-const { width } = Dimensions.get('screen');
+const {width, height} = Dimensions.get("window");
 
 const TabBar = ({ state, navigation }) => {
   const [selected, setSelected] = useState('Home');
   const { routes } = state;
-  const renderColor = currentTab => (currentTab === selected ? '#ffdbcf' : 'black');
+  const renderColor = currentTab => (currentTab === selected ? '#008577' : 'black');
 
   const handlePress = (activeTab, index) => {
     if (state.index !== index) {
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
   wrapper: {
     position: 'absolute',
     bottom: 20,
-    width,
+    width:width,
     alignItems: 'center',
     justifyContent: 'center',
   },

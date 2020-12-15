@@ -83,7 +83,7 @@ const CarreteScreen = ({navigation}) => {
         
         <Container>
             {/*Header */}
-            <StatusBar backgroundColor="#ffdbcf" />
+            <StatusBar backgroundColor="#008577" />
             <View>
                 <View style={styles.triangle}/>
                 <View style={styles.square}/>
@@ -93,11 +93,11 @@ const CarreteScreen = ({navigation}) => {
                     <AntDesign name="addfolder" size={24} color="black" onPress={()=>{setOpen(true)}}/> 
                 </View>
                 <View style={{position:'absolute', left:width*0.25, top:height*0.027}}>
-                    <Text style={{fontSize:20,color:'#3c1e22'}}>Albums</Text>
+                    <Text style={{fontSize:20,color:'black'}}>Albums</Text>
                 </View>
-                <View style={{position:'absolute', right:width*0.06, top:height*0.027}}>
+                {/* {<View style={{position:'absolute', right:width*0.06, top:height*0.027}}>
                     <FontAwesome name="trash-o" size={28} color="black" onPress={()=>{setAbrir(true)}}/> 
-                </View>
+                </View>} */}
             </View>
             <View style={{marginTop:100}}>
             <FlatList
@@ -223,7 +223,7 @@ const styles = StyleSheet.create({
     triangle:{
         position: 'absolute',
         right: 0,
-        left: width*0.715,
+        left: width*0.718,
         width: 0,
         height: 0,
         backgroundColor: 'white',
@@ -232,7 +232,7 @@ const styles = StyleSheet.create({
         borderLeftWidth: height*0.16,
         borderRightWidth: 0,
         borderBottomWidth: 0,
-        borderTopColor: '#ffdbcf',
+        borderTopColor: '#008577',
         borderLeftColor: 'transparent',
         borderRightColor: 'transparent',
         borderBottomColor: 'transparent',
@@ -243,12 +243,12 @@ const styles = StyleSheet.create({
         left: 0,
         width: width,
         height: 0,
-        backgroundColor: '#ffdbcf',
+        backgroundColor: '#008577',
         borderStyle: 'solid',
         borderTopWidth: height*0.048,
         borderBottomWidth: height*0.048,
-        borderTopColor: '#ffdbcf',
-        borderBottomColor: '#ffdbcf',
+        borderTopColor: '#008577',
+        borderBottomColor: '#008577',
     },
 });
 
