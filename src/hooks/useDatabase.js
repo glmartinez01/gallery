@@ -1,20 +1,23 @@
+import { Form } from "native-base";
 import React, { useEffect, useState } from "react";
 import { database } from "../components/db";
+import {AsyncStorage} from "react-native";
 
 const useDatabase = () => {
   const [isLoadingComplete, setIsLoadingComplete] = useState(false);
 
   const loadDatabase = async () => {
     try {
-      //await database.dropDatabaseAlbumsTableAsync();
-      await database.setupDatabaseAlbumsTableAsync();
-      //await database.setupAlbumsAsync();
-      //await database.setupAlbumsAsync2();
-      //await database.dropDatabaseTableAsync();
-      await database.setupDatabaseTableAsync();
-      //await database.setupImagesAsync();
-      //await database.setupExtra();
 
+      const setup = await AsyncStorage.getItem("setup");
+
+      if(!setup){
+        await database.setupDatabaseAlbumsTableAsync();
+        await database.setupAlbumsAsync();
+        await database.setupAlbumsAsync2();
+        await database.setupDatabaseTableAsync();
+      } 
+      
       // Finaliza la carga de la DB
       setIsLoadingComplete(true);
     } catch (error) {
