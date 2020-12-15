@@ -42,7 +42,7 @@ const imageScreen = ({route,navigation}) => {
     const handlerDelete=()=>{
         deleteImage(id,refreshImages);
         refreshImages();
-        navigation.goBack()
+        navigation.goBack();
     }
 
     const twoButtonAlert = () =>

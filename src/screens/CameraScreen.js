@@ -61,8 +61,9 @@ const CameraScreen = ({navigation}) => {
         //Salvar la foto a galeria
         const savePicture = () => {
             // Validar que la imagen tiene valor
+            
             if (capturedPhoto) {
-              addNewImage(capturedPhoto,album,refreshImages);
+              addNewImage(capturedPhoto,2,refreshImages);
 
               // Refrescar las imagenes
               refreshImages();

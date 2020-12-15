@@ -286,6 +286,47 @@ const setupAlbumsAsync = async () => {
     );
   });
 };
+const setupAlbumsAsync2 = async () => {
+  return new Promise((resolve, reject) => {
+    db.transaction(
+      (tx) => {
+        tx.executeSql("insert into albums (album, status) values (?,?)", [
+          "Camara",
+          "NUEVA",
+        ]);
+      },
+      (_t, error) => {
+        console.log("Error al momento de insertar los valores por defecto");
+        console.log(error);
+        reject(error);
+      },
+      (_t, success) => {
+        resolve(success);
+      }
+    );
+  });
+};
+
+const setupExtra = async () => {
+  return new Promise((resolve, reject) => {
+    db.transaction(
+      (tx) => {
+        tx.executeSql("update albums set id = ? where id = ?", [
+          2,
+          3,
+        ]);
+      },
+      (_t, error) => {
+        console.log("Error al momento de insertar los valores por defecto");
+        console.log(error);
+        reject(error);
+      },
+      (_t, success) => {
+        resolve(success);
+      }
+    );
+  });
+};
 
 
 
@@ -302,6 +343,7 @@ export const database = {
   dropDatabaseAlbumsTableAsync,
   setupDatabaseTableAsync,
   setupDatabaseAlbumsTableAsync,
+  setupAlbumsAsync2,
   setupImagesAsync,
   setupAlbumsAsync,
 };

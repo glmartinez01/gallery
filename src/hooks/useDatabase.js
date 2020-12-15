@@ -9,9 +9,11 @@ const useDatabase = () => {
       //await database.dropDatabaseAlbumsTableAsync();
       await database.setupDatabaseAlbumsTableAsync();
       //await database.setupAlbumsAsync();
+      //await database.setupAlbumsAsync2();
       //await database.dropDatabaseTableAsync();
       await database.setupDatabaseTableAsync();
       //await database.setupImagesAsync();
+      //await database.setupExtra();
 
       // Finaliza la carga de la DB
       setIsLoadingComplete(true);
