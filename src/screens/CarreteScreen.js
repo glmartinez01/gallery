@@ -119,7 +119,7 @@ const CarreteScreen = ({navigation}) => {
                                     <View style={{flex:1, alignItems:"center"}}>
                                         <TouchableOpacity onPress={()=>{navigation.navigate("imagesbyAlbumScreen",{id:item.id,name:item.album})}} >
                                             <Card style={styles.gallery}>
-                                                
+                                                <AntDesign style={{marginTop:30}} name="folder1" size={100} color="black" />
                                                 <Text style={styles.texto}>
                                                     {item.album}
                                                 </Text>

@@ -6,8 +6,8 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
-      "image": "./assets/splash.jpg",
-      "resizeMode": "cover",
+      "image": "./assets/splashI.png",
+      "resizeMode": "contain",
       "backgroundColor": "#008577"
     },
     "updates": {
