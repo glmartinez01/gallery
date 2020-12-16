@@ -3,6 +3,7 @@ import React, {useContext,useEffect,useState} from "react";
 import {StyleSheet,Text,Platform,FlatList,Dimensions, StatusBar} from "react-native";
 import { AntDesign } from '@expo/vector-icons';
 import { MaterialCommunityIcons,Entypo } from '@expo/vector-icons';
+import * as Permissions from 'expo-permissions';
 //import {Header} from "native-base"
 import {ImagesContext} from "../context/ImagesContext";
 import {AlbumsContext} from "../context/AlbumsContext";
@@ -30,44 +31,48 @@ const HomeScreen = ({navigation}) => {
     const imagesContext = useContext(ImagesContext);
     const {addNewImage, refreshImages} = imagesContext;
 
-    useEffect(() => {
-        (async () => {
-           
-            const { status } = await ImagePicker.getCameraRollPermissionsAsync();
-            if (status !== 'granted') {
-              alert('Sorry, we need camera roll permissions to make this work!');
-            }
-          
-        })();
-      }, []);
+    // useEffect(() => {
+    //   (async () => {
+    //     const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+    //       if (status !== 'granted') {
+    //         alert('Sorry, we need camera roll permissions to make this work!');
+    //       }
+    //     })();
+    //   }, []);
 
     async function pickImage(){
+    const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+      if (status !== 'granted') {
+        alert('Sorry, we need camera roll permissions to make this work!');
+      }else{
         let result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.All,
-            allowsEditing: false,
-            aspect: [4, 3],
-            base64:true,
-            quality: 1,
-          });
-      
-          console.log(result.uri);
-      
-          if (!result.cancelled) {
+          mediaTypes: ImagePicker.MediaTypeOptions.All,
+          allowsEditing: false,
+          aspect: [4, 3],
+          base64:true,
+          quality: 1,
+        });
+    
+        console.log(result.uri);
+    
+        if (!result.cancelled) {
 
-            try {
-                let message = 'data:image/png;base64, ' + result.base64;
-                //setImage(result.uri)
-                const resultado = result.uri;
-                addNewImage(resultado,album,refreshImages);
-                {console.log(images)}
-                {console.log(albums)}
-                refreshImages();
-               
+          try {
+              let message = 'data:image/png;base64, ' + result.base64;
+              //setImage(result.uri)
+              const resultado = result.uri;
+              addNewImage(resultado,album,refreshImages);
+              {console.log(images)}
+              {console.log(albums)}
+              refreshImages();
+              
 
-            } catch (error) {
-                console.log(error);
-            }
+          } catch (error) {
+              console.log(error);
           }
+        }
+      }
+    
     }
     
     return(
